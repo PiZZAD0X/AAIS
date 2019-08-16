@@ -22,7 +22,6 @@
  * Public: No
  */
  #include "script_component.hpp"
- EXEC_CHECK(SERVERHC);
 
 // Get all buildings
 params ["_numPos", "_position", "_filter"];

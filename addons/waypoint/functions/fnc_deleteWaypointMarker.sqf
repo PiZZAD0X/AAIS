@@ -15,7 +15,6 @@
  * Public: Yes
  */
  #include "script_component.hpp"
- EXEC_CHECK(SERVERHC);
 
 params [
     ["_group", grpNull, [grpNull]],

@@ -17,6 +17,7 @@
  *
  * Public: Yes
  */
+EXEC_CHECK(SERVERHC);
 
 params [
     ["_unit", objNull, [objNull]],

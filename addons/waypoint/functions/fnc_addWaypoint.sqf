@@ -17,7 +17,6 @@
  * Public: No
  */
  #include "script_component.hpp"
- EXEC_CHECK(SERVERHC);
 
 params ["_group", "_targetPos", ["_waypointType", ""], ["_execStatements", ""], ["_condition", "true"], ["_radius", 0], ["_completionRadius", -1]];
 
