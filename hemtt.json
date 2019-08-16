@@ -1,0 +1,9 @@
+{
+  "name": "AAIS",
+  "prefix": "AAIS",
+  "author": "AAIS Team",
+  "files": [
+    "mod.cpp"
+  ],
+  "sigversion": 3
+}

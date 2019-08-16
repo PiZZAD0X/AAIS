@@ -1,0 +1,11 @@
+PREP(addWaypoint);
+PREP(checkMarkerInput);
+PREP(clearWaypoints);
+PREP(elipMarkerRandomPos);
+PREP(generatePerimeterWaypoint);
+PREP(generateWaypoint);
+PREP(markerRandomBuildingPos);
+PREP(markerRandomPos);
+PREP(organizeMarkers);
+PREP(recMarkerRandomPos);
+PREP(selectRandomMarker);
