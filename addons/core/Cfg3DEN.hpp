@@ -3,10 +3,6 @@ class Cfg3DEN {
         #include "CfgAttributes.hpp"
     };
     
-    class Group {};
-
-    class Object {};
-    
     class Mission {
         #include "cfg3den\cfg3denMenuCategories.hpp"
     };

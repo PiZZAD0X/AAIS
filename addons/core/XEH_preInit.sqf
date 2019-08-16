@@ -7,44 +7,38 @@ ADDON = false;
 if !(GETMVALUE(Enabled,false)) exitWith {
     INFO("AAIS is disabled in Mission settings... exiting");
 };
-INFO("Initializing MAI");
+INFO("Initializing AAIS");
 
 LOG("Global Pre Init");
 SETMVAR(Initialized,false);
 [] call FUNC(setDefaults);
+[] call FUNC(checkifHC);
 
-if (isServer) then {
-    DGVAR(groupRegisters) = [];
-    DGVAR(groupTemplates) = [] call CBA_fnc_hashCreate;
-};
-
-private _MAIVersionCreatedStr = (GETMVALUE(Version_Created,""));
-if (_MAIVersionCreatedStr isEqualto "") then {
+private _AAISVersionCreatedStr = (GETMVALUE(Version_Created,""));
+if (_AAISVersionCreatedStr isEqualto "") then {
     SETMVAR(Version_CreatedNum,102);
     INFO("Mission Created with Framework Version: Legacy");
 } else {
-    private _MAIVersionCreated = parseNumber ((_MAIVersionCreatedStr splitString ".") joinString "");
-    SETMVAR(Version_CreatedNum,_MAIVersionCreated);
-    INFO_1("Mission Created with Framework Version:%1",_MAIVersionCreated);
+    private _AAISVersionCreated = parseNumber ((_AAISVersionCreatedStr splitString ".") joinString "");
+    SETMVAR(Version_CreatedNum,_AAISVersionCreated);
+    INFO_1("Mission Created with Framework Version:%1",_AAISVersionCreatedStr);
 };
 
-private _MAIVersionStr = (GETMVALUE(Version_Updated,""));
-if (_MAIVersionStr isEqualto "") then {
+private _AAISVersionStr = (GETMVALUE(Version_Updated,""));
+if (_AAISVersionStr isEqualto "") then {
     SETMVAR(Version_UpdatedNumber,102);
     INFO("Mission Updated with Framework Version: Legacy");
 } else {
-    private _MAIVersion = parseNumber ((_MAIVersionStr splitString ".") joinString "");
-    SETMVAR(Version_UpdatedNumber,_MAIVersion);
-    INFO_1("Mission Updated with Framework Version:%1",_MAIVersion);
+    private _AAISVersion = parseNumber ((_AAISVersionStr splitString ".") joinString "");
+    SETMVAR(Version_UpdatedNumber,_AAISVersion);
+    INFO_1("Mission Updated with Framework Version:%1",_AAISVersionStr);
 };
 
 [QGVAR(registerGroup), {
     params ["_group", ["_registerMarker", ""]];
 
     GVAR(groupRegisters) pushBack [_group, _registerMarker];
-
     if (_registerMarker isEqualTo "") exitWith {};
-
     private _markerGroups = missionNamespace getVariable [format [QGVAR(%1), _registerMarker], []];
     _markerGroups pushBack _group;
     missionNamespace setVariable [format [QGVAR(%1), _registerMarker], _markerGroups];
@@ -52,12 +46,10 @@ if (_MAIVersionStr isEqualto "") then {
 
 [QGVAR(unregisterGroup), {
     params ["_group"];
-
     {
         if ((_x select 0) isEqualTo _group) exitWith {
-            private _markerGroups = missionNamespace getVariable [format [QGVAR(%1), _x select 1], []];
+            private _markerGroups = missionNamespace getVariable [format [QGVAR(%1),_x select 1], []];
             _markerGroups deleteAt (_markerGroups find _group);
-
             GVAR(groupRegisters) deleteAt _forEachIndex;
         };
     } forEach GVAR(groupRegisters);

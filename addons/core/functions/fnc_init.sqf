@@ -29,7 +29,7 @@ params [
 private _group = group _unit;
 if (!local _group) exitWith {};
 
-if (!GVAR(debugEnabled)) then {
+if !(GVAR(debugEnabled)) then {
     diag_log format ["%1", marker];
     if (_marker isEqualType "") then {
         _marker setMarkerAlpha 0;

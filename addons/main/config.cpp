@@ -27,7 +27,7 @@ class CfgMods {
         hideName = "true";
         actionName = "Website";
         action = CSTRING(URL);
-        description = "Issue Tracker: https://github.com/TheMagnetar/magnetar-ai/issues";
+        description = "Issue Tracker: https://github.com/PiZZAD0X/AAIS/issues";
     };
 };
 

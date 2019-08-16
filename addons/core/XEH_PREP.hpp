@@ -13,6 +13,7 @@ PREP(hasVisual);
 PREP(helperTemplateInfantry);
 PREP(helperTemplateVehicle);
 PREP(init);
+PREP(ModuleExpression);
 PREP(moveGroupToPosition);
 PREP(moveUnitsToPositions);
 PREP(parseOptions);
@@ -26,3 +27,6 @@ PREP(shuffleArray);
 
 PREPATTR(AIOnlyOnLoad);
 PREPATTR(PlayerOnlyOnLoad);
+PREPATTR(TeamsSelectBoxAttribute_AttrSave);
+PREPATTR(TeamsSelectBoxAttribute_AttrLoad);
+PREPATTR(TeamsSelectBoxAttribute_onLBSelChanged);
