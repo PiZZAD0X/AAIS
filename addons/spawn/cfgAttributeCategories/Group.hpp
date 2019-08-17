@@ -87,7 +87,7 @@ class GVAR(GroupBehaviour) {
             tooltip = "Force the stance of the group. Default: AUTO";
             control = "UnitPos";
             expression = ENTITY_EXPRESSION;
-            defaultValue = "3";
+            defaultValue = "'auto'";
         };
         class GVAR(forceLights) {
             property = QGVAR(forceLights);
