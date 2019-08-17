@@ -9,6 +9,15 @@ PREP(spawnGroupPFH);
 PREP(spawnUnitsGroupPFH);
 PREP(AttributesChanged3DENEH);
 
+PREPATTR(OccupySelectAttribute_AttrLoad);
+PREPATTR(OccupySelectAttribute_AttrSave);
+PREPATTR(OccupySelectAttribute_onLBSelChanged);
+PREPATTR(TaskSelectAttribute_AttrLoad);
+PREPATTR(TaskSelectAttribute_AttrSave);
+PREPATTR(TaskSelectAttribute_onLBSelChanged);
 PREPATTR(ZoneActivationAttribute_AttrLoad);
 PREPATTR(ZoneActivationAttribute_AttrSave);
 PREPATTR(ZoneActivationAttribute_onLBSelChanged);
+PREPATTR(zoneActivatorAttribute_AttrLoad);
+PREPATTR(zoneActivatorAttribute_AttrSave);
+PREPATTR(zoneActivatorAttribute_onLBSelChanged);

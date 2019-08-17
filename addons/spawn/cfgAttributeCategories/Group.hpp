@@ -16,7 +16,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "Init";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "";
+            defaultValue = "''";
         };
         class GVAR(Callsign) {
             property = QGVAR(Callsign);
@@ -24,7 +24,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "Callsign";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "";
+            defaultValue = "''";
         };
         class GVAR(Placement) {
             property = QGVAR(Placement);
@@ -40,7 +40,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "CombatMode";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "YELLOW";
+            defaultValue = "'YELLOW'";
         };
         class GVAR(Behaviour) {
             property = QGVAR(Behaviour);
@@ -48,7 +48,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "Behaviour";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "AWARE";
+            defaultValue = "'AWARE'";
         };
         class GVAR(Formation) {
             property = QGVAR(Formation);
@@ -56,7 +56,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "Formation";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "wedge";
+            defaultValue = "'wedge'";
         };
         class GVAR(SpeedMode) {
             property = QGVAR(SpeedMode);
@@ -64,7 +64,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "SpeedMode";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "normal";
+            defaultValue = "'normal'";
         };
         class GVAR(DynamicSimulation) {
             property = QGVAR(DynamicSimulation);
@@ -85,27 +85,17 @@ class GVAR(GroupBehaviour) {
             displayName = "Group Stance";
             tooltip = "Force the stance of the group. Default: AUTO";
             property = QGVAR(groupStance);
-            control = QGVAR(stanceControl);
+            control = "UnitPos";
             expression = ENTITY_EXPRESSION;
-            defaultValue = "'auto'";
+            defaultValue = "3";
         };
         class GVAR(forceLights) {
             displayName = "Force Flashlights";
             tooltip = "Force group to use flashlights if dark. Removes NVG Goggles. Default: Off";
             property = QGVAR(forceLights);
-            control = QGVAR(forcelightsControl);
+            control = QGVAR(forcelightsControlAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "false";
-            typeName = "BOOL";
-        };
-        class GVAR(surrender) {
-            displayName = "Will Surrender";
-            tooltip = "This group will surrender if there team leader dies or they take greater than 50% casualties. Default: False";
-            property = QGVAR(surrender);
-            control = QGVAR(boolControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "false";
-            typeName = "BOOL";
+            defaultValue = "0";
         };
     };
 };
@@ -114,62 +104,37 @@ class GVAR(GroupTask) {
     displayName = "AI Group Task Options";
     collapsed = 1;
     class Attributes {
-        class GVAR(createRadius) {
-            displayName = "Creation Radius";
-            tooltip = "Radius that Group will be randomly created in when activated. Default: 0";
-            property = QGVAR(createRadius);
-            control = QGVAR(standardNumberControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
-            typeName = "NUMBER";
-            validate = "number";
-        };
-        class GVAR(patrolRadius) {
-            displayName = "Task Radius";
-            tooltip = "Radius that Group will conduct the assigned task in. Default: 30m";
-            property = QGVAR(patrolRadius);
-            control = QGVAR(patrolradiusControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "30";
-            typeName = "NUMBER";
-            validate = "number";
-        };
-        class GVAR(waypointWait) {
-            displayName = "Waypoint Wait Time";
-            tooltip = "Time unit or group will wait at each auto generated waypoint. Default: 3 secs.";
-            property = QGVAR(waypointWait);
-            control = QGVAR(waypointwaitControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "3";
-            typeName = "NUMBER";
-            validate = "number";
-        };
-        class GVAR(startBuilding) {
-            displayName = "Start in Building";
-            tooltip = "Group will start inside nearest building then move out to conduct set task. Building Occupy tasks overide this setting. Default: Off";
-            property = QGVAR(startBuilding);
-            control = QGVAR(startbuildingControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "false";
-            typeName = "BOOL";
-        };
         class GVAR(task) {
             displayName = "Task";
             tooltip = "Task the unit or group will conduct on activation. Default: Patrol";
             property = QGVAR(task);
-            control = QGVAR(taskControl);
+            control = QGVAR(TaskSelectAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "4";
+            defaultValue = "'Patrol'";
+        };
+        class GVAR(patrolRadius) {
+            property = QGVAR(patrolRadius);
+            displayName = "Task Radius";
+            tooltip = "Radius that Group will conduct the assigned task in. Default: 30m";
+            control = QEGVAR(Core,0to250Step10_Slider);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "30";
+        };
+        class GVAR(waypointWait) {
+            property = QGVAR(waypointWait);
+            displayName = "Waypoint Wait Time";
+            tooltip = "Time unit or group will wait at each auto generated waypoint. Default: 3 secs.";
+            control = QEGVAR(Core,0to30Step1_Slider);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "3";
         };
         class GVAR(TaskTimer) {
+            property = QGVAR(TaskTimer);
             displayName = "Time";
             tooltip = "How long the group will perform this task before continuing to another. Default: 0 (forever).";
-            property = QGVAR(TaskTimer);
-            control = QGVAR(standardNumberAltControl);
+            control = QEGVAR(Core,0to600Step1_Slider);
             expression = ENTITY_EXPRESSION;
             defaultValue = "0";
-            typeName = "NUMBER";
-            validate = "number";
         };
     };
 };
@@ -178,31 +143,29 @@ class GVAR(GroupPopulate) {
     displayName = "AI Populate Options";
     collapsed = 1;
     class Attributes {
+        class GVAR(createRadius) {
+            property = QGVAR(createRadius);
+            displayName = "Creation Radius";
+            tooltip = "Radius that Group will be randomly created in when activated. Default: 0";
+            control = QEGVAR(Core,0to250Step10_Slider);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "0";
+        };
         class GVAR(multiplier) {
+            property = QGVAR(multiplier);
             displayName = "Group Multiplier";
             tooltip = "Duplicates the group into multiple groups with same settings. Use Creation Radius to populate large areas randomly. Default: 1 (this group only)";
-            property = QGVAR(multiplier);
-            control = QGVAR(multiplierControl);
+            control = QEGVAR(Core,1to10Step1_Slider);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
-            typeName = "NUMBER";
-            validate = "number";
-        };
-        class GVAR(multiOccupy) {
-            displayName = "Multiplied Groups Occupy Options";
-            tooltip = "How many generated groups from the group muliplier will use the occupy options below. Default: NO CHANGE";
-            property = QGVAR(multiOccupy);
-            control = QGVAR(multioccupyControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
+            defaultValue = "1";
         };
         class GVAR(occupyOption) {
-            displayName = "Occupy Building Options";
-            tooltip = "Should the group occupy a building or buildings. Default: OFF";
             property = QGVAR(occupyOption);
-            control = QGVAR(occupyoptionControl);
+            displayName = "Occupy Building Options";
+            tooltip = "Should the group occupy a building or group of buildings. Default: Off";
+            control = QGVAR(OccupySelectAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
+            defaultValue = "'Off'";
         };
     };
 };

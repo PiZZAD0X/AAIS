@@ -58,7 +58,7 @@ class CfgVehicles {
                 displayName = "Activating Unit Type";
                 tooltip = "Type of unit the player is that activates the zone. Default all Units";
                 property = QGVAR(zoneActivatorType);
-                control = QGVAR(zoneTypeControl);
+                control = QGVAR(zoneActivatorAttribute);
                 expression = MODULE_EXPRESSION;
                 defaultValue = "0";
                 activationTypes[] = {"Conditional","CustomConditional"};
