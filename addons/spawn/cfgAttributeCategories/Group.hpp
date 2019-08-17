@@ -1,47 +1,86 @@
-class Init : Init {
+class GVAR(HiddenGroupOptions) {
+    displayName = "";
     collapsed = 1;
-};
-
-class State : State {
-    collapsed = 1;
+    class Attributes {
+        class GVAR(Name) {
+            property = QGVAR(Name);
+            displayName = "Name";
+            tooltip = "Name";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "3";
+        };
+        class GVAR(Init) {
+            property = QGVAR(Init);
+            displayName = "Init";
+            tooltip = "Init";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "";
+        };
+        class GVAR(Callsign) {
+            property = QGVAR(Callsign);
+            displayName = "Callsign";
+            tooltip = "Callsign";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "";
+        };
+        class GVAR(Placement) {
+            property = QGVAR(Placement);
+            displayName = "Placement";
+            tooltip = "Placement";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "0";
+        };
+        class GVAR(CombatMode) {
+            property = QGVAR(CombatMode);
+            displayName = "CombatMode";
+            tooltip = "CombatMode";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "YELLOW";
+        };
+        class GVAR(Behaviour) {
+            property = QGVAR(Behaviour);
+            displayName = "Behaviour";
+            tooltip = "Behaviour";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "AWARE";
+        };
+        class GVAR(Formation) {
+            property = QGVAR(Formation);
+            displayName = "Formation";
+            tooltip = "Formation";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "wedge";
+        };
+        class GVAR(SpeedMode) {
+            property = QGVAR(SpeedMode);
+            displayName = "SpeedMode";
+            tooltip = "SpeedMode";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "normal";
+        };
+        class GVAR(DynamicSimulation) {
+            property = QGVAR(DynamicSimulation);
+            displayName = "DynamicSimulation";
+            tooltip = "DynamicSimulation";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "false";
+        };
+    };
 };
 
 class GVAR(GroupBehaviour) {
     displayName = "AI Group Behavour Options";
     collapsed = 1;
     class Attributes {
-        class GVAR(behaviour) {
-            displayName = "Behaviour";
-            tooltip = "Behaviour of the group or unit on activation. Default: SAFE";
-            property = QGVAR(behaviour);
-            control = QGVAR(behaviourControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'safe'";
-        };
-        class GVAR(combatMode) {
-            displayName = "CombatMode";
-            tooltip = "Combat Mode of the group or unit on activation. Default: Fire at Will, Engage at Will";
-            property = QGVAR(combatMode);
-            control = QGVAR(combatModeControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'red'";
-        };
-        class GVAR(speed) {
-            displayName = "Speed";
-            tooltip = "Speed of the group or unit on activation. Default: Limited";
-            property = QGVAR(speed);
-            control = QGVAR(speedControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'limited'";
-        };
-        class GVAR(formation) {
-            displayName = "Formation";
-            tooltip = "Formation of the group or unit on activation. Default: WEDGE";
-            property = QGVAR(formation);
-            control = QGVAR(formationControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'wedge'";
-        };
         class GVAR(groupStance) {
             displayName = "Group Stance";
             tooltip = "Force the stance of the group. Default: AUTO";
@@ -68,16 +107,9 @@ class GVAR(GroupBehaviour) {
             defaultValue = "false";
             typeName = "BOOL";
         };
-        class GVAR(groupInit) {
-            displayName = "Group Init";
-            tooltip = "Pass custom parameters or code to the group of units. ( _this = GROUP ) Default: Nil";
-            property = QGVAR(groupInit);
-            control = QGVAR(codeControl);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'true'";
-        };
     };
 };
+
 class GVAR(GroupTask) {
     displayName = "AI Group Task Options";
     collapsed = 1;
@@ -141,6 +173,7 @@ class GVAR(GroupTask) {
         };
     };
 };
+
 class GVAR(GroupPopulate) {
     displayName = "AI Populate Options";
     collapsed = 1;

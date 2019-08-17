@@ -12,6 +12,37 @@ class GVAR(standardNumberControl) : Edit {
          };
      };
  };
+ class GVAR(stanceControl): Toolbox {
+    attributeLoad = "_index = ['auto','down','middle','up'] find _value; missionNamespace setvariable ['AAIS_stance_value',_index]; (_this controlsGroupCtrl 110) lbsetcursel _index;";
+    attributeSave = "['auto','down','middle','up'] select (missionNamespace getvariable ['AAIS_stance_value',0]);";
+    h = 8 * GRID_H;
+    class Controls: Controls {
+        class Title: Title {
+            h = 8 * GRID_H;
+        };
+        class Value: Value {
+            idc = 110;
+            style = ST_CENTER + ST_PICTURE + ST_KEEP_ASPECT_RATIO;
+            h = 8 * GRID_H;
+            rows = 1;
+            columns = 4;
+            strings[] = {
+                "\a3\3DEN\Data\Attributes\default_ca.paa",
+                "\a3\3DEN\Data\Attributes\Stance\down_ca.paa",
+                "\a3\3DEN\Data\Attributes\Stance\middle_ca.paa",
+                "\a3\3DEN\Data\Attributes\Stance\up_ca.paa"
+            };
+            tooltips[] = {
+                $STR_3den_attributes_stance_default,
+                $STR_3den_attributes_stance_down,
+                $STR_3den_attributes_stance_middle,
+                $STR_3den_attributes_stance_up
+            };
+            values[] = {-1,0,1,2};
+            onToolboxSelChanged = "missionNamespace setvariable ['AAIS_stance_value',_this select 1];";
+        };
+    };
+};
 class GVAR(patrolradiusControl) : Edit {
      attributeLoad = "if !(_value isEqualType '') then {_value = str _value;};(_this controlsGroupCtrl 102) ctrlSetText _value;";
      attributeSave = "_value = ctrlText (_this controlsGroupCtrl 102); if (gettext (_config >> 'typeName') == 'NUMBER') then {_value = parsenumber _value;}; [_value] spawn AAIS_fnc_setRadial; _value";

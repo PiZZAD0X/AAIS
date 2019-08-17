@@ -9,8 +9,7 @@ params ["_ctrl"];
     disableSerialization;
     params ["_ctrl"];
     private _ctrlGroup = ctrlParentControlsGroup ctrlParentControlsGroup _ctrl;
-    private _allControls = (allcontrols (ctrlparent _ctrl)) select {ctrlParentControlsGroup ctrlParentControlsGroup _x isEqualto _ctrlGroup};
-    LOG_1("_allControls: %1",_allControls);
+    private _allControls = (allcontrols (ctrlparent _ctrl)) select {ctrlParentControlsGroup _x isEqualto _ctrlGroup};
     {
         private _name = ctrlClassName _x;
         private _isCategory = _name isEqualTo "Minimize";

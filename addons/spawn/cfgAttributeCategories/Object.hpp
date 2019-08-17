@@ -1,59 +1,30 @@
-class Init : Init {
-    class Attributes {
-        class Name {
-            property = QGVAR(Name);
-            expression = ENTITY_EXPRESSION;
-        };
-        class Init {
-            property = QGVAR(Init);
-            expression = ENTITY_EXPRESSION;
-        };
-    };
-};
-
-class State : State {
-    class Attributes {
-        class Lock {
-            property = QGVAR(Lock);
-            expression = ENTITY_EXPRESSION;
-		};
-        class Skill {
-            property = QGVAR(Skill);
-            expression = ENTITY_EXPRESSION;
-		};
-        class Health {
-            property = QGVAR(Health);
-            expression = ENTITY_EXPRESSION;
-		};
-        class Fuel {
-            property = QGVAR(Fuel);
-            expression = ENTITY_EXPRESSION;
-		};
-        class Ammo {
-            property = QGVAR(Ammo);
-            expression = ENTITY_EXPRESSION;
-		};
-        class Rank {
-            property = QGVAR(Rank);
-            expression = ENTITY_EXPRESSION;
-		};
-        class UnitPos {
-            property = QGVAR(UnitPos);
-            expression = ENTITY_EXPRESSION;
-		};
-    };
-};
-
 class GVAR(HiddenUnitOptions) {
     displayName = "";
+    collapsed = 1;
     class Attributes {
-        class GVAR(unitPos_Hidden) {
-            property = QGVAR(unitPos_Hidden);
-            displayName = "";
-            tooltip = "";
+        class GVAR(unitPos) {
+            property = QGVAR(unitPos);
+            displayName = "unitPos";
+            tooltip = "unitPos";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
+            defaultValue = "3";
+        };
+        class GVAR(Init) {
+            property = QGVAR(Init);
+            displayName = "Init";
+            tooltip = "Init";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "";
+        };
+        class GVAR(Name) {
+            property = QGVAR(Name);
+            displayName = "Name";
+            tooltip = "Name";
+            control = QEGVAR(core,HiddenAttribute);
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "";
         };
     };
 };

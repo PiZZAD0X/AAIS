@@ -30,3 +30,4 @@ PREPATTR(PlayerOnlyOnLoad);
 PREPATTR(TeamsSelectBoxAttribute_AttrSave);
 PREPATTR(TeamsSelectBoxAttribute_AttrLoad);
 PREPATTR(TeamsSelectBoxAttribute_onLBSelChanged);
+PREPATTR(HiddenAttribute_AttrLoad);
