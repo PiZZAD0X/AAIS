@@ -62,6 +62,12 @@
 #define GETVAR_SYS(var1,var2) getVariable [ARR_2(QUOTE(TRIPLES(PREFIX,COMPONENT,var1)),var2)]
 #define EGETVAR_SYS(var1,var2,var3) getVariable [ARR_2(QUOTE(TRIPLES(PREFIX,var1,var2)),var3)]
 
+#define GETVAR(var1,var2,var3) var1 GETVAR_SYS(var2,var3)
+#define EGETVAR(var1,var2,var3,var4) var1 EGETVAR_SYS(var2,var3,var4)
+
+#define GETPLVAR(var1,var2) player GETVAR_SYS(var1,var2)
+#define EGETPLVAR(var1,var2,var3) player EGETVAR_SYS(var1,var2,var3)
+
 #define GETMVAR(var1,var2) missionNamespace GETVAR_SYS(var1,var2)
 #define EGETMVAR(var1,var2,var3) missionNamespace EGETVAR_SYS(var1,var2,var3)
 

@@ -20,6 +20,7 @@ PREP(parseOptions);
 PREP(reenableGroup);
 PREP(removeGroup);
 PREP(restart);
+PREP(searchNestedArray);
 PREP(setBasicSettings);
 PREP(setDefaults);
 PREP(setSkill);
@@ -27,6 +28,9 @@ PREP(shuffleArray);
 
 PREPATTR(AIOnlyOnLoad);
 PREPATTR(PlayerOnlyOnLoad);
+PREPATTR(CheckboxStateReversed_AttrSave);
+PREPATTR(CheckboxStateReversed_AttrLoad);
+PREPATTR(CheckboxStateReversed_onCheckedChanged);
 PREPATTR(TeamsSelectBoxAttribute_AttrSave);
 PREPATTR(TeamsSelectBoxAttribute_AttrLoad);
 PREPATTR(TeamsSelectBoxAttribute_onLBSelChanged);

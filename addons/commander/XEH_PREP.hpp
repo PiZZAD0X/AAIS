@@ -1,0 +1,10 @@
+PREP(AreaModule);
+
+PREPATTR(CommanderRankAttribute_AttrLoad);
+PREPATTR(CommanderRankAttribute_AttrSave);
+PREPATTR(CommanderRankAttribute_onLBSelChanged);
+PREPATTR(GroupAreaSelectAttribute_AttrLoad);
+PREPATTR(GroupAreaSelectAttribute_AttrSave);
+PREPATTR(GroupAssetTypeAttribute_AttrLoad);
+PREPATTR(GroupAssetTypeAttribute_AttrSave);
+PREPATTR(GroupAssetTypeAttribute_onLBSelChanged);

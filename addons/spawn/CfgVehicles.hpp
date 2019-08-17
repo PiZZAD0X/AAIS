@@ -60,7 +60,7 @@ class CfgVehicles {
                 property = QGVAR(zoneActivatorType);
                 control = QGVAR(zoneActivatorAttribute);
                 expression = MODULE_EXPRESSION;
-                defaultValue = "0";
+                defaultValue = "['Ground','Helicopter','Plane','Ship']";
                 activationTypes[] = {"Conditional","CustomConditional"};
             };
             class GVAR(zoneCondition) {
@@ -116,7 +116,7 @@ class CfgVehicles {
                 displayName = "Initial Spawn";
                 tooltip = "Enabling activates the zone on init, spawning units on the start of the mission. Default disabled.";
                 property = QGVAR(zoneInitial);
-                control = "CheckboxStateReversed";
+                control = EGVAR(Core,CheckboxStateReversed);
                 expression = MODULE_EXPRESSION;
                 defaultValue = "false";
             };

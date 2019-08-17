@@ -111,6 +111,13 @@ class Checkbox: Title {
     };
 };
 
+class CheckboxReversed: CheckBox {
+    class Controls {
+        class Title;
+        class Value;
+    };
+};
+
 class CheckboxState: Checkbox {
     class Controls {
         class Title;
@@ -160,46 +167,6 @@ class SubTitleIndent: SubTitle {
         class Title: Title {
             x="6 * (pixelH * pixelGrid * 0.50)";
             sizeEx="5.2 * (1 / (getResolution select 3)) * pixelGrid * 0.5";
-        };
-    };
-};
-
-class CheckboxStateReversed: CheckboxState {
-    attributeLoad="\
-        private _ctrlCheckbox = (_this controlsGroupCtrl 100);\
-        _ctrlCheckbox cbSetChecked _value;\
-        private _fade = [0.75,0] select _value;\
-        private _ctrlGroup = ctrlParentControlsGroup ctrlParentControlsGroup _ctrlCheckbox;\
-        {\
-            if (ctrlParentControlsGroup _x isEqualto _ctrlGroup) then {\
-                _x ctrlenable _value;\
-                _x ctrlsetfade _fade;\
-                _x ctrlcommit 0;\
-            };\
-        } foreach ((allcontrols (ctrlparent _ctrlCheckbox)) - [ctrlParentControlsGroup _ctrlCheckbox]);\
-    ";
-    attributeSave="\
-        private _ctrlCheckbox = (_this controlsGroupCtrl 100);\
-        _value = cbChecked _ctrlCheckbox;\
-        _value\
-    ";
-    class Controls: Controls {
-        class Title: Title {};
-        class Value: Value {
-            idc = 100;
-            onCheckedChanged="\
-                private _ctrlCheckbox = _this select 0;\
-                private _state = [true,false] select (cbChecked _ctrlCheckbox);\
-                private _fade = [0.75,0] select _state;\
-                private _ctrlGroup = ctrlParentControlsGroup ctrlParentControlsGroup _ctrlCheckbox;\
-                {\
-                    if (ctrlParentControlsGroup _x isEqualto _ctrlGroup) then {\
-                        _x ctrlenable _state;\
-                        _x ctrlsetfade _fade;\
-                        _x ctrlcommit 0;\
-                    };\
-                } foreach ((allcontrols (ctrlparent _ctrlCheckbox) )- [ctrlParentControlsGroup _ctrlCheckbox]);\
-            ";
         };
     };
 };

@@ -82,17 +82,17 @@ class GVAR(GroupBehaviour) {
     collapsed = 1;
     class Attributes {
         class GVAR(groupStance) {
+            property = QGVAR(groupStance);
             displayName = "Group Stance";
             tooltip = "Force the stance of the group. Default: AUTO";
-            property = QGVAR(groupStance);
             control = "UnitPos";
             expression = ENTITY_EXPRESSION;
             defaultValue = "3";
         };
         class GVAR(forceLights) {
+            property = QGVAR(forceLights);
             displayName = "Force Flashlights";
             tooltip = "Force group to use flashlights if dark. Removes NVG Goggles. Default: Off";
-            property = QGVAR(forceLights);
             control = QGVAR(forcelightsControlAttribute);
             expression = ENTITY_EXPRESSION;
             defaultValue = "0";
@@ -105,9 +105,9 @@ class GVAR(GroupTask) {
     collapsed = 1;
     class Attributes {
         class GVAR(task) {
+            property = QGVAR(task);
             displayName = "Task";
             tooltip = "Task the unit or group will conduct on activation. Default: Patrol";
-            property = QGVAR(task);
             control = QGVAR(TaskSelectAttribute);
             expression = ENTITY_EXPRESSION;
             defaultValue = "'Patrol'";

@@ -5,3 +5,4 @@
 #include "CfgAttributes\SliderTimeDayAttribute.hpp"
 #include "CfgAttributes\TeamsSelectBoxAttribute.hpp"
 #include "CfgAttributes\HiddenAttribute.hpp"
+#include "CfgAttributes\CheckboxStateReversed.hpp"
