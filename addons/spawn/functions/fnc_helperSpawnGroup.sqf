@@ -19,7 +19,6 @@
  * Public: Yes
  */
 #include "script_component.hpp"
-EXEC_CHECK(SERVERHC);
 
 params ["_units", "_side", "_position", "_settings"];
 
