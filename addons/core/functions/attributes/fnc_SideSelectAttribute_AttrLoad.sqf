@@ -4,7 +4,6 @@ EDEN_CHECK;
 params ["_control","_value"];
 
 private _ctrlCombo = (_control controlsGroupCtrl 100);
-SETMVAR(CommanderSide,_value);
 private _sides = [
     ["Opfor","EAST","a3\ui_f\data\map\diary\icons\playereast_ca.paa"],
     ["Blufor","WEST","a3\ui_f\data\map\diary\icons\playerwest_ca.paa"],

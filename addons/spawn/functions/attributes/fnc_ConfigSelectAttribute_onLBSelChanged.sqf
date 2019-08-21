@@ -47,7 +47,7 @@ if (_config isEqualTo "") then {
             private _unitCount = count _unitArray;
             if (_unitCount > 20) then {_unitCount = 20;};
             for "_uc" from 0 to (_unitCount - 1) step 1 do {
-                private _idc = 220 + _uc;
+                private _idc = 5220 + _uc;
                 private _tooltip = _unitArray select _uc;
                 _activeUnitControls pushBack _idc;
                 _activeUnitArray pushBack _tooltip;
@@ -59,7 +59,7 @@ if (_config isEqualTo "") then {
                 private _vehCount = count _vehArray;
                 if (_vehCount > 3) then {_vehCount = 3;};
                 for "_vc" from 0 to (_vehCount - 1) step 1 do {
-                    private _idc = 320 + _vc;
+                    private _idc = 5320 + _vc;
                     private _tooltip = _vehArray select _vc;
                     _activeVehControls pushBack _idc;
                     _activeVehArray pushBack _tooltip;
@@ -69,16 +69,13 @@ if (_config isEqualTo "") then {
     };
     private _ctrlGroup = ctrlParentControlsGroup ctrlParentControlsGroup _ctrlCombo;
     private _allControls = (allcontrols (ctrlparent _ctrlCombo)) select {(ctrlParentControlsGroup ctrlParentControlsGroup _x isEqualto _ctrlGroup) 
-            && {!(ctrlClassName _x isEqualTo "Title")} 
-            && {!(ctrlClassName _x isEqualTo "Value")}
-            && {!(ctrlClassName _x isEqualTo "RandomText")}
-            && {!(ctrlClassName _x isEqualTo "RandomPicture")}
+            && {((ctrlClassName _x) find "Picture") > -1}
     };
     {
         private _ctrl = _x;
         private _ctrlName = ctrlClassName _x;
         private _ctrlIDC = ctrlIDC _x;
-        private _vehControl = _ctrlIDC in [320,321,322,323];
+        private _vehControl = _ctrlIDC in [5320,5321,5322,5323];
         private _state = false;
         private _tooltip = "";
         private _icon = "";

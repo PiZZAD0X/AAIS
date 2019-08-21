@@ -34,4 +34,7 @@ PREPATTR(CheckboxStateReversed_onCheckedChanged);
 PREPATTR(TeamsSelectBoxAttribute_AttrSave);
 PREPATTR(TeamsSelectBoxAttribute_AttrLoad);
 PREPATTR(TeamsSelectBoxAttribute_onLBSelChanged);
+PREPATTR(SideSelectAttribute_AttrSave);
+PREPATTR(SideSelectAttribute_AttrLoad);
+PREPATTR(SideSelectAttribute_onLBSelChanged);
 PREPATTR(HiddenAttribute_AttrLoad);

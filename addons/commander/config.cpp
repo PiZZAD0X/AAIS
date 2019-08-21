@@ -6,7 +6,7 @@ class CfgPatches {
         units[] = {};
         weapons[] = {};
         requiredVersion = REQUIRED_VERSION;
-        requiredAddons[] = {"aais_main", "aais_core"};
+        requiredAddons[] = {"aais_main", "aais_core", "aais_spawn", "aais_tasks"};
         authors[] = {"TheMagnetar","PiZZADOX"};
         author = "AAIS-Team";
         authorUrl = "https://gitlab.gruppe-w.de/Magnetar";

@@ -1,5 +1,4 @@
-class GVAR(MainSettings) {
-    displayName = "Spawning Settings";
+class EGVAR(Core,MainSettings) {
     class AttributeCategories {
         #include "Spawning\MainSettings.hpp"
     };

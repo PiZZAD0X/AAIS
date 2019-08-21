@@ -78,7 +78,7 @@ class GVAR(HiddenGroupOptions) {
 };
 
 class GVAR(GroupBehaviour) {
-    displayName = "AI Group Behavour Options";
+    displayName = "AI Group Options";
     collapsed = 1;
     class Attributes {
         class GVAR(groupStance) {
@@ -97,13 +97,6 @@ class GVAR(GroupBehaviour) {
             expression = ENTITY_EXPRESSION;
             defaultValue = "0";
         };
-    };
-};
-
-class GVAR(GroupTask) {
-    displayName = "AI Group Task Options";
-    collapsed = 1;
-    class Attributes {
         class GVAR(task) {
             property = QGVAR(task);
             displayName = "Task";
@@ -136,13 +129,6 @@ class GVAR(GroupTask) {
             expression = ENTITY_EXPRESSION;
             defaultValue = "0";
         };
-    };
-};
-
-class GVAR(GroupPopulate) {
-    displayName = "AI Populate Options";
-    collapsed = 1;
-    class Attributes {
         class GVAR(createRadius) {
             property = QGVAR(createRadius);
             displayName = "Creation Radius";
