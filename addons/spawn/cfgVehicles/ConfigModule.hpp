@@ -52,6 +52,14 @@ class GVAR(ConfigModule): EGVAR(core,BaseModule) {
             expression = MODULE_EXPRESSION;
             defaultValue = "''";
         };
+        class GVAR(groupProbabilityPresence) {
+            property = QGVAR(groupProbabilityPresence);
+            displayName = "Probability of Presence";
+            tooltip = "Probability that the group will be spawned.";
+            control = QEGVAR(Core,0to100Step1_Slider);
+            expression = MODULE_EXPRESSION;
+            defaultValue = "100";
+        };
         class GVAR(groupStance) {
             property = QGVAR(groupStance);
             displayName = "Group Stance";

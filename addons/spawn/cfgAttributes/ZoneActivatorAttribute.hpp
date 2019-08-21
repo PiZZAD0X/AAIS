@@ -11,7 +11,6 @@ class GVAR(zoneActivatorAttribute): Title {
             show = 1;
             x = "48 * (pixelW * pixelGrid * 0.50)";
             w = "82 * (pixelW * pixelGrid * 0.50)";
-            h = "2 * (pixelH * pixelGrid * 0.50)";
             h = "4 * 5 * (pixelH * pixelGrid * 0.50)";
             colorSelectBackground[] = {0,0,0,0};
             colorSelectBackground2[] = {0,0,0,0};

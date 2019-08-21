@@ -1,0 +1,7 @@
+- editor sync functions
+- debug map marker function
+- group handler
+- task module & functions
+- task/zone/control sync interrupt function -> if synced with control classes move to queue 
+- editor sync -> pfh spawner
+
