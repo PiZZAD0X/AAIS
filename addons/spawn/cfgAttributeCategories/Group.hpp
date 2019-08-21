@@ -8,7 +8,7 @@ class GVAR(HiddenGroupOptions) {
             tooltip = "Name";
             control = QEGVAR(core,HiddenAttribute);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "3";
+            defaultValue = "''";
         };
         class GVAR(Init) {
             property = QGVAR(Init);
