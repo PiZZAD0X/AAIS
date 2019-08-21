@@ -4,3 +4,4 @@
 #include "CfgAttributes\TaskSelectAttribute.hpp"
 #include "CfgAttributes\ZoneActivationAttribute.hpp"
 #include "CfgAttributes\ZoneActivatorAttribute.hpp"
+#include "CfgAttributes\ConfigSelectAttribute.hpp"

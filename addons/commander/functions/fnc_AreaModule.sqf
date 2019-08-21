@@ -19,7 +19,7 @@ switch (_mode) do {
             LOG_2("_logic: %1 _AreaModulesList: %2",_logic,_AreaModulesList);
             private _AreaName = (_logic get3DENAttribute QGVAR(AreaName)) select 0;
             if (_AreaName in _AreaModulesList) exitwith {
-                ERROR_1("Duplicate AreaName for Hostage Area %1",_AreaName);
+                ERROR_1("Duplicate AreaName for Commander Area %1",_AreaName);
                 [_AreaName,_logic,_AreaModulesList] spawn {
                     params ["_AreaName","_logic","_AreaModulesList"];
                     private _result = ["Area Name duplicate found, please rename one of the Areas", "Duplicate Area Name", "Rename?", true, (findDisplay 313)] call BIS_fnc_guiMessage;
@@ -72,7 +72,7 @@ switch (_mode) do {
         LOG_2("_logic: %1 _AreaModulesList: %2",_logic,_AreaModulesList);
         private _AreaName = (_logic get3DENAttribute QGVAR(AreaName)) select 0;
         if (_AreaName in _AreaModulesList) exitwith {
-            ERROR_1("Duplicate AreaName for Hostage Area %1",_AreaName);
+            ERROR_1("Duplicate AreaName for Commander Area %1",_AreaName);
             [_AreaName,_logic,_AreaModulesList] spawn {
                 params ["_AreaName","_logic","_AreaModulesList"];
                 private _result = ["Area Name duplicate found, please rename one of the Areas", "Duplicate Area Name", "Rename?", true, (findDisplay 313)] call BIS_fnc_guiMessage;

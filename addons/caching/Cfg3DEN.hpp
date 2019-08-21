@@ -1,4 +1,4 @@
-#include "\m\aais\addons\core\RscTitles.hpp"
+#include "\m\aais\addons\main\RscTitles.hpp"
 
 class Cfg3DEN {
     class Mission {

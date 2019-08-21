@@ -9,6 +9,9 @@ PREP(spawnGroupPFH);
 PREP(spawnUnitsGroupPFH);
 PREP(AttributesChanged3DENEH);
 
+PREPATTR(ConfigSelectAttribute_AttrLoad);
+PREPATTR(ConfigSelectAttribute_AttrSave);
+PREPATTR(ConfigSelectAttribute_onLBSelChanged);
 PREPATTR(OccupySelectAttribute_AttrLoad);
 PREPATTR(OccupySelectAttribute_AttrSave);
 PREPATTR(OccupySelectAttribute_onLBSelChanged);

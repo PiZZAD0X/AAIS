@@ -4,10 +4,13 @@
 class Display;
 class DisplaySimulated;
 class ctrlControlsGroupNoScrollbars;
+class VScrollbar;
+class Scrollbar;
+class HScrollbar;
+class ctrlDefault;
 class ctrlButton;
 class ctrlButtonPictureKeepAspect;
 class ctrlDefaultText;
-class ctrlDefault;
 class ctrlMenu;
 class ctrlMenuStrip;
 class ctrlToolbox;
@@ -18,6 +21,7 @@ class ctrlStatic;
 class ctrlXSliderH;
 class ctrlStaticFrame;
 class ctrlStaticPicture;
+class ctrlStaticPictureKeepAspect;
 class ctrlTree;
 class ctrlListbox;
 class ControlsBackground;
@@ -35,3 +39,4 @@ class Transformation;
 class Control;
 class Presence;
 class Size;
+
