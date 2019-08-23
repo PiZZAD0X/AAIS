@@ -29,7 +29,7 @@ if (isClass (missionConfigFile >> "CfgGroupCompositions" >> _templateName)) exit
 
 private _exits = [GVAR(groupTemplates), _templateName] call CBA_fnc_hashGet;
 if !(isNil _exits) exitWith {
-	ERROR_1("Template name %1 already defined",_templateName);
+    ERROR_1("Template name %1 already defined",_templateName);
 };
 
 private _side = format ["%1", side _modelGroup];
