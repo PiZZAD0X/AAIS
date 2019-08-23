@@ -1,5 +1,5 @@
 class CfgGroupCompositions {
-    
+
     class Common {
         behaviour[] = {"careless", "safe", "aware", "combat", "stealth"};
         combatMode[] = {"blue", "green", "white", "yellow", "red"};
@@ -39,9 +39,9 @@ class CfgGroupCompositions {
     };
 
     class rhs_usaf_marine_1 : rhs_usaf_marine {
-    	leaders[] = {"rhsusf_usmc_marpat_wd_teamleader"};
-    	units[] = {"rhsusf_usmc_marpat_wd_rifleman", "rhsusf_usmc_marpat_wd_grenadier", "rhsusf_usmc_marpat_wd_autorifleman_m249"};
-    	random = 0; // Group composition is fixed
+        leaders[] = {"rhsusf_usmc_marpat_wd_teamleader"};
+        units[] = {"rhsusf_usmc_marpat_wd_rifleman", "rhsusf_usmc_marpat_wd_grenadier", "rhsusf_usmc_marpat_wd_autorifleman_m249"};
+        random = 0; // Group composition is fixed
     };
 
     class Wheeled : Common {
