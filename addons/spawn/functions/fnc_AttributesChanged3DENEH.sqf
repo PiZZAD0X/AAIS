@@ -34,7 +34,7 @@ private _valueArrayGroup = [
 ];
 
 {
-    _x params ["_BIvarName", "_varName", ""];
+    _x params ["_BIvarName", "_varName", ""]; // "_defaultValue is the third parameter"
     private _group = group _unit;
     private _BIvalueReturn = _group get3DENAttribute _BIvarName;
     if !(_BIvalueReturn isEqualTo []) then {
