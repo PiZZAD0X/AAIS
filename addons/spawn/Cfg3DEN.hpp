@@ -22,6 +22,6 @@ class Cfg3DEN {
     };
 
     class Mission {
-        #include "cfg3den\cfg3denMenuCategories.hpp"
+        #include "cfg3DEN\cfg3denMenuCategories.hpp"
     };
 };

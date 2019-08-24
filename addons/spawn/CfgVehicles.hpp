@@ -7,7 +7,7 @@ class CfgVehicles {
 
     class EGVAR(core,BaseModule);
 
-    #include "CfgVehicles\ZoneModule.hpp"
-    #include "CfgVehicles\ConfigModule.hpp"
-    #include "CfgVehicles\TemplateModule.hpp"
+    #include "cfgVehicles\ZoneModule.hpp"
+    #include "cfgVehicles\ConfigModule.hpp"
+    #include "cfgVehicles\TemplateModule.hpp"
 };
