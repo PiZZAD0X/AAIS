@@ -1,6 +1,6 @@
 class CfgVehicles {
     class EGVAR(core,BaseModule);
-    
-    #include "CfgVehicles\AreaModule.hpp"
-    #include "CfgVehicles\ConfigModuleAdditions.hpp"
+
+    #include "cfgVehicles\AreaModule.hpp"
+    #include "cfgVehicles\ConfigModuleAdditions.hpp"
 };
