@@ -17,7 +17,7 @@
 
 params ["_group"];
 
-_group setVariable [QGVAR(cached), true, true];
+_group setVariable [QGVAR(cached), true];
 
 private _leader = leader _group;
 {

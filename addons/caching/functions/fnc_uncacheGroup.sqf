@@ -17,7 +17,7 @@
 
 params ["_group"];
 
-_group setVariable [QGVAR(cached), false, true];
+_group setVariable [QGVAR(cached), false];
 
 {
     if (simulationEnabled _x) exitWith {};

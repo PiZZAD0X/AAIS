@@ -19,8 +19,8 @@ params ["_group"];
 
 if (_group getVariable [QGVAR(fullCached), false]) exitWith {};
 
-_group setVariable [QGVAR(cached), false, true];
-_group setVariable [QGVAR(fullCached), true, true];
+_group setVariable [QGVAR(cached), false];
+_group setVariable [QGVAR(fullCached), true];
 
 private _units = units _group;
 _units append ([_group] call EFUNC(vehicle,getGroupVehicles));

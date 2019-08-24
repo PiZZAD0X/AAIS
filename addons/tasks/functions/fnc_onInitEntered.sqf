@@ -40,4 +40,4 @@ if ([_settings, "forceRoads"] call CBA_fnc_hashGet) then {
 };
 
 [_group] call EFUNC(waypoint,clearWaypoints);
-_group setVariable [QEGVAR(core,settings), _settings, true];
+_group setVariable [QEGVAR(core,settings), _settings];
