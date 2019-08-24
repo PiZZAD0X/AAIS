@@ -65,7 +65,7 @@ if (_unitType isEqualType "") then {
 
     if (isNull (_group getVariable [QEGVAR(core,leader), objNull])) then {
         _group selectLeader _spawnedUnit;
-        _group setVariable [QEGVAR(core,leader), _spawnedUnit, true];
+        _group setVariable [QEGVAR(core,leader), _spawnedUnit];
     };
 
     if (_useTemplate) then {
@@ -189,6 +189,6 @@ if (_unitType isEqualType "") then {
             };
         };
 
-        _group setVariable [QEGVAR(core,leader), _leader, true];
+        _group setVariable [QEGVAR(core,leader), _leader];
     };
 };

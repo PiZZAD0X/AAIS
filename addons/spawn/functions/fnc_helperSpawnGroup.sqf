@@ -33,7 +33,7 @@ switch (toLower _side) do {
     default {_group = createGroup east};
 };
 
-_group setVariable [QGVAR(settings), _settings, true];
+_group setVariable [QGVAR(settings), _settings];
 
 if !(_position isEqualTo []) then {
     _group setVariable [QEGVAR(core,startPosition), _position];
