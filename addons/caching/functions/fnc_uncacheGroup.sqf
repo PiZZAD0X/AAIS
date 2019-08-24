@@ -20,11 +20,11 @@ params ["_group"];
 _group setVariable [QGVAR(cached), false, true];
 
 {
-    if (!simulationEnabled _x) then {
-        _x enableSimulationGlobal true;
-        _x hideObjectGlobal false;
-        if (vehicle _x == _x) then {
-            _x setPosATL (formationPosition _x);
-        };
+    if (simulationEnabled _x) exitWith {};
+
+    _x enableSimulationGlobal true;
+    _x hideObjectGlobal false;
+    if (vehicle _x == _x) then {
+        _x setPosATL (formationPosition _x);
     };
 } forEach (units _group);
