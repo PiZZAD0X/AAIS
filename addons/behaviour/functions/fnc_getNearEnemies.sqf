@@ -1,6 +1,7 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
- * Returns an array of dead bodies within the given distance visible by the unit
+ * Returns an array of near enemies from a unit
  *
  * Arguments:
  * 0: Unit <OBJECT><ARRAY>
@@ -14,10 +15,10 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_unit", ["_radius", -1]];
 
 
 private _targets = _unit nearTargets _radius;
+
 _targets

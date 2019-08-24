@@ -29,7 +29,6 @@ if (CBA_missionTime < (_group getVariable [QGVAR(lastCheck), CBA_missionTime])) 
 _group setVariable [QGVAR(lastCheck), CBA_missionTime + 1];
 
 if !([_group] call FUNC(shouldCache)) then {
-
     [QGVAR(uncache), _group] call CBA_fnc_localEvent;
 } else {
 

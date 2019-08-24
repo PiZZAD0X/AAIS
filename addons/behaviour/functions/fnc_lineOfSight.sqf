@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: Soldia
  *
@@ -14,7 +15,7 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
+
 
 //#define SOL_DEBUG
 //#define DEBUG_MODE_FULL
