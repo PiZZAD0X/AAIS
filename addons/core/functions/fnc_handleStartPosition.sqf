@@ -109,12 +109,11 @@ if (_inRandomPosition || {!(_position isEqualTo [])} ) exitWith {
 
 if (_inRandomBuilding) exitWith {
     _group setVariable [QGVAR(registerMarker), _marker];
-
-    private _positions = [count _units, _marker, [["area", _marker], ["enterable", true], ["blacklist", _blackListedMarkers]], false] call EFUNC(waypoint,markerRandomBuildingPos);
-
+    private _unitCount = count _units;
+    private _positions = [_unitCount, _marker, [["area", _marker], ["enterable", true], ["blacklist", _blackListedMarkers]], false] call EFUNC(waypoint,markerRandomBuildingPos);
+    private _positionsCount = count _positions;
     // Generate positions for all units
-    if (count _units > count _positions) then {
-
+    if (_unitCount > _positionsCount) then {
         // Generate a random position since there are no suitable buildings
         if (_positions isEqualTo []) then {
             private _unitType = _units select 0;
@@ -124,8 +123,8 @@ if (_inRandomBuilding) exitWith {
             _positions pushBack ([_marker, [false, true, false], [0, 50, _unitType], _blackListedMarkers] call EFUNC(waypoint,markerRandomPos));
         };
 
-        private _requiredPositions = (count _units) - (count _positions) - 1;
-        private _numPositions = count _positions;
+        private _requiredPositions = _unitCount - _positionsCount - 1;
+        private _numPositions = _positionsCount;
         for "_i" from 0 to _requiredPositions do {
             private _unitType = _units select (_numPositions + _i);
             if !(_unitType isEqualTo "") then {
@@ -141,12 +140,12 @@ if (_inRandomBuilding) exitWith {
     };
 
     if (_moveUnits) then {
-        [units _group, _positions] call FUNC(moveUnitsToPositions);
+        [_units, _positions] call FUNC(moveUnitsToPositions);
     } else {
         _group setVariable [QGVAR(startPosition), _positions];
     };
 };
 
-if ((units _group) isEqualTo []) then {
+if (_units isEqualTo []) then {
     ERROR("No position assigned");
 }

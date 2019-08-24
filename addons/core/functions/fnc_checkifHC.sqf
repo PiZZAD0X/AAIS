@@ -1,6 +1,6 @@
 #include "script_component.hpp"
 /*
- * Author: AAIS Team
+ * Author: PiZZAD0X, TheMagnetar
  * Checks if the machine is a Headless Client (HC).
  *
  * Arguments:
@@ -22,14 +22,7 @@ GVAR(HC_isHC) = false;
 GVAR(HC_ID) = false;
 
 // Listen server and SP
-if (!isMultiplayer || {(isMultiplayer) && {isServer} && {hasinterface}}) then {
-    _hc = true;
-    GVAR(HC_isHC) = true;
-    SETMPVAR(HC_ID,clientowner);
-};
-
-// Headless client
-if (!hasInterface && {!isDedicated}) then {
+if ((isServer && {hasinterface}) || {!hasInterface && {!isDedicated}}) then {
     _hc = true;
     GVAR(HC_isHC) = true;
     SETMPVAR(HC_ID,clientowner);
@@ -47,4 +40,5 @@ if !(isNil QGVAR(HC_ID)) then {
 };
 
 LOG_2("Running CheckIfHC: %1 for client %2",_hc,clientowner);
+
 _hc
