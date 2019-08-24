@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Spawn PFH.
@@ -14,7 +15,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_group", "_handle"];
 

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Move the some of all the unitss of the group to the near buildings.
@@ -14,7 +15,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_group"];
 

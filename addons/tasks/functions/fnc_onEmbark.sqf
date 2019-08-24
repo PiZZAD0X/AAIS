@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Disembark units from a vehicle.
@@ -14,9 +15,8 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 
 if (!local _group) exitWith {};
 

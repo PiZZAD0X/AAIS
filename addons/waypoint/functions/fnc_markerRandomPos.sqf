@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Returns a random position in a marker.
@@ -21,7 +22,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params [
     ["_marker", "", ["", []]],

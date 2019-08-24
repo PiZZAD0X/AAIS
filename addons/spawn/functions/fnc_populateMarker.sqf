@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Spawns a random group of units.
@@ -22,8 +23,8 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
-EXEC_CHECK(SERVERHC);
+
+EXEC_CHECK(SERVERHC); // Only execute on server or in hc
 
 params [
     ["_marker", "", ["", []]],

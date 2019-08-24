@@ -1,7 +1,7 @@
 #include "script_component.hpp"
 EXEC_CHECK(CLIENTHC);
 
-[QGVAR(SettingsLoaded), {
+[QGVAR(settingsLoaded), {
     if (hasInterface) exitWith {};
 
     if (GETMVAR(AIViewDistanceEnabled,false)) then {

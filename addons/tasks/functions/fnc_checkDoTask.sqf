@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Checks if a group should start doing something
@@ -13,9 +14,8 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 
 private _settings = _group getVariable [QEGVAR(core,settings), []];
 private _task = [_settings, "task"] call CBA_fnc_hashGet;

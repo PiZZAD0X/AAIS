@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Spawns a group defined in a config entry.
@@ -19,7 +20,6 @@
  * Public: Yes
  */
 #include "script_component.hpp"
-EXEC_CHECK(SERVERHC);
 
 params [
     ["_configEntry", "", [""]],

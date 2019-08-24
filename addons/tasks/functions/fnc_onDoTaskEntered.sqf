@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Task patrol.
@@ -13,9 +14,8 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 
 private _settings = _group getVariable [QEGVAR(core,settings), []];
 [[_settings, "task"] call CBA_fnc_hashGet, _group] call CBA_fnc_localEvent;

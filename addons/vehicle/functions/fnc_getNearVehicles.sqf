@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Returns near vehicles the unit is aware of that can be used by the group.
@@ -14,7 +15,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_unit", "_distance"];
 

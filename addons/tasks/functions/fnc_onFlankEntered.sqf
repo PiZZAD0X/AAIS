@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Handles entered. Inspired by FUPS.
@@ -13,7 +14,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_group"];
 
