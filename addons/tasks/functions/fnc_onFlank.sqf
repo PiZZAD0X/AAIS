@@ -22,7 +22,7 @@ if !(CBA_missionTime >= (_group getVariable [QGVAR(nextCheckTime), CBA_missionTi
 if ((units _group) findIf {alive _x} == -1) exitWith {deleteGroup _group;};
 
 if (!local _group) exitWith {
-    _group setVariable [QGVAR(targetPos), _group getVariable [QGVAR(targetPos)], true];
+    _group setVariable [QGVAR(targetPos), _group getVariable [QGVAR(targetPos)]];
 };
 
 private _leader = leader _group;

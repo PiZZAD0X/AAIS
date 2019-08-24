@@ -54,12 +54,12 @@ _settings = [_settings, _options] call FUNC(parseOptions);
 [_group, _settings] call FUNC(applyOptionsPreSpawn);
 [_group, _settings] call FUNC(applyOptions);
 
-_group setVariable [QGVAR(settings), _settings, true];
+_group setVariable [QGVAR(settings), _settings];
 
 // Register the group
 _marker = _group getVariable [QGVAR(registerMarker), ""];
 [QGVAR(registerGroup), [_group, _marker]] call CBA_fnc_serverEvent;
 
 if !([_settings, "release"] call CBA_fnc_hashGet) then {
-    _group setVariable [QGVAR(enabled), true, true];
+    _group setVariable [QGVAR(enabled), true];
 };
