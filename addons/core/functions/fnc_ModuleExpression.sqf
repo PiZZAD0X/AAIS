@@ -16,7 +16,6 @@
  *
  * Public: No
  */
-EXEC_CHECK;
 
 params ["_obj", "_propertyName", "_value"];
 

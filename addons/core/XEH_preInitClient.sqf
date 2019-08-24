@@ -1,5 +1,6 @@
 #include "script_component.hpp"
-EXEC_CHECK(CLIENTHC);
+
+if (hasInterface) exitWith {}; // Do not execute this in player clients
 
 [QGVAR(settingsLoaded), {
     if (hasInterface) exitWith {};
