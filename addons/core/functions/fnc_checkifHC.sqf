@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: AAIS Team
  * Checks if the machine is a Headless Client (HC).
@@ -13,8 +14,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
-EXEC_CHECK(ALL);
 
 LOG("Running CheckIfHC");
 

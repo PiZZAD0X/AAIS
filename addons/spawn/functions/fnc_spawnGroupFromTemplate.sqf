@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Creates a group template.
@@ -18,7 +19,7 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
+
 EXEC_CHECK(SERVERHC);
 
 params [

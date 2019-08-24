@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Returns all empty positions of a vehicle
@@ -13,7 +14,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_vehicle"];
 

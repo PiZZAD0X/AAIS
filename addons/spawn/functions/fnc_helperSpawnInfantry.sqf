@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Helper routine for spawning a random group of infantry units.
@@ -18,7 +19,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_configEntry", "_settings", "_side", "_size", ["_targetPos", []]];
 

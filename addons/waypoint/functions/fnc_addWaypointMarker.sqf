@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Adds a waypoint marker to the group.
@@ -15,7 +16,6 @@
  *
  * Public: Yes
  */
- #include "script_component.hpp"
 
 params [
     ["_group", grpNull, [grpNull]],

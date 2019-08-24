@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Modifies the weight of a waypoint marker.
@@ -15,7 +16,6 @@
  *
  * Public: Yes
  */
- #include "script_component.hpp"
 
 params [
     ["_group", grpNull, [grpNull]],

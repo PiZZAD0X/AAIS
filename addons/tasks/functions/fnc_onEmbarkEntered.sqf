@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Task patrol.
@@ -13,9 +14,8 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 private _unitsToEmbark = (units _group) select {vehicle _x == _x && {alive _x}};
 
 if (_unitsToEmbark isEqualTo []) exitWith {};

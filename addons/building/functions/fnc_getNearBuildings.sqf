@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Gets all buildings within a certain radius of the given position
@@ -15,7 +16,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_pos", ["_radius", 25], ["_returnNearest", false]];
 

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Generates a waypoint.
@@ -17,7 +18,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params [["_group", objNull], "_marker", ["_options", []]];
 

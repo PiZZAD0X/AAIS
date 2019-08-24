@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Returns near vehicles the unit is aware of that can be used by the group.
@@ -14,7 +15,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_vehicle", ["_forceAll", false]];
 
@@ -22,7 +22,7 @@ private _units = [];
 
 if (_forceAll) exitWith {
     {
-        if (alive _x select 0) then {
+        if (alive (_x select 0)) then {
             _units pushBack (_x select 0);
         };
     } forEach fullCrew [_vehicle, "", false];

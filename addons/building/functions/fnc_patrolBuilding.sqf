@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Makes a unit patrol a building.
@@ -12,7 +13,6 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
 
 params ["_unit", ["_deleteBuildingPos", true]];
 

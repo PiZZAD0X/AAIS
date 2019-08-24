@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Helper routine for spawning group of units
@@ -18,7 +19,6 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
 
 params ["_units", "_side", "_position", "_settings"];
 

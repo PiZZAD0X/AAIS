@@ -1,3 +1,5 @@
+#include "script_component.hpp"
+
 /*
  * Author: TheMagnetar
  * Spawn PFH.
@@ -16,7 +18,7 @@
  */
 #include "script_component.hpp"
 
-params ["_param", "_handle"];
+params ["", ""];
 
 if (GVAR(spawnQueue) isEqualTo []) exitWith {
     [GVAR(spawnGroupPFH)] call CBA_fnc_removePerFrameHandler;

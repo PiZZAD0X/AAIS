@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Handles patrol building state entered
@@ -13,9 +14,8 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 
 private _inBuilding = [_group] call EFUNC(building,moveInBuilding);
 

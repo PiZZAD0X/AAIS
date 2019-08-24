@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Disembark units from a vehicle.
@@ -16,7 +17,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_vehicle", ["_unassign", true], ["_doPerimeter", true], ["_forceAll", false], ["_allowWater", false], ["_allowLand", true]];
 

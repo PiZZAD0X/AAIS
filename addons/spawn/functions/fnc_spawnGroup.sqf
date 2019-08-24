@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Spawns a group of units.
@@ -18,7 +19,6 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
 EXEC_CHECK(SERVERHC);
 
 params [

@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Random position on a rectangular marker.
@@ -17,7 +18,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_sizeX", "_sizeY", "_centerX", "_centerY", "_markerDir"];
 

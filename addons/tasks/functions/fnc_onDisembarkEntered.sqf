@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Function called when entering disembark state.
@@ -13,9 +14,8 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
-params ["_group", "_state"];
+params ["_group", ""];
 
 private _vehicles = [_group] call EFUNC(vehicle,getGroupVehicles);
 

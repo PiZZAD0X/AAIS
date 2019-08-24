@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Selects a marker randomly.
@@ -13,7 +14,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params ["_markers"];
 

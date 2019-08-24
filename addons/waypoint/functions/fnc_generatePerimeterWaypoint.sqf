@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Generates a set of waypoints for perimeter patrolling.
@@ -15,7 +16,6 @@
  *
  * Public: No
  */
- #include "script_component.hpp"
 
 params [["_group", objNull], "_center", "_radius", ["_options", []]];
 
