@@ -20,7 +20,10 @@
  * Public: Yes
  */
 
-EXEC_CHECK(SERVERHC);
+// Execute only on HCs or Servers
+if (hasInterface && {!isServer}) exitWith {
+    ERROR("Function called in a client during a multiplayer session.")
+};
 
 params [
     ["_templateName", "", [""]],
