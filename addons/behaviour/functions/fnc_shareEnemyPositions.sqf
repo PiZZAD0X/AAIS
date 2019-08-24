@@ -1,3 +1,4 @@
+#include "script_component.hpp"
 /*
  * Author: TheMagnetar
  * Share enemy positions with other groups of the same side.
@@ -14,7 +15,6 @@
  *
  * Public: No
  */
-#include "script_component.hpp"
 
 params ["_group", ["_radius", -1]];
 
@@ -36,6 +36,6 @@ private _groups = allGroups select {_x getVariable [QEGVAR(core,enabled), false]
 
     // Take care of groups not being local
     if (!local _x) then {
-        _group setVariable [QGVAR(knownEnemies), _grpEnemies, true];
+        _group setVariable [QGVAR(knownEnemies), _grpEnemies, true]; // TODO: Make use of CBA targetEvent to reduce network traffic
     };
 } forEach _groups;

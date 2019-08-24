@@ -24,7 +24,6 @@ params [
 private _groups = [_marker, _filter] call FUNC(getMarkerGroups);
 
 {
-
     private _units = units _x;
     _units append ([_x] call EFUNC(vehicle,getGroupVehicles));
 

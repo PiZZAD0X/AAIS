@@ -4,24 +4,23 @@
  * Returns an array of near enemies from a unit
  *
  * Arguments:
- * 0: Unit <OBJECT><ARRAY>
- * 1: Radius <NUMBER> (default: -1)
+ * 0: Unit <OBJECT>
+ * 1: Position <OBJECT><ARRAY>
  *
  * Return Value:
- * Array of dead bodies <ARRAY>
+ * Nearest known enemy <OBJECT>
  *
  * Example:
- * [player, 100] call aais_behaviour_fnc_getNearEnemies
+ * [player, player] call aais_behaviour_fnc_getNearestEnemy
+ * [player, [0, 0, 0]] call aais_behaviour_fnc_getNearestEnemy
  *
  * Public: No
  */
 
-params ["_unit", ["_radius", -1]];
+params ["_unit", "_position"];
 
 // TODO: This is a temporary function state. This function should also make use of shared enemy positions and possibly make use of cached
 // values to avoid using expensive commands.
 // QGVAR(knownEnemies) is a variable storing shared enemy positions
 
-private _targets = _unit nearTargets _radius;
-
-_targets
+_unit findNearestEnemy _position
