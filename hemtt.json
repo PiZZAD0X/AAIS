@@ -1,6 +1,6 @@
 {
   "name": "AAIS",
-  "prefix": "AAIS",
+  "prefix": "aais",
   "author": "AAIS Team",
   "files": [
     "mod.cpp"
