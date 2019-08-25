@@ -18,24 +18,23 @@
 
 params ["_group", ["_radius", -1]];
 
-private _knownEnemies = _group getVariable [QGVAR(knownEnemies), []];
-if (_knownEnemies isEqualTo []) exitWith {};
-
 if (_radius == -1) then {
-    _group getVariable [QGVAR(shareDistance), 500];
+    _radius = _group getVariable [QGVAR(shareDistance), GVAR(shareDistance)];
 };
 
 private _leader = leader _group;
 private _side = side _leader;
 private _groups = allGroups select {_x getVariable [QEGVAR(core,enabled), false] && {side (leader _x) isEqualTo _side}};
+_groups deleteAt (_groups find _group);
+
+private _sharedInfo = [];
+{
+    private _knowledge = _leader knowsAbout _x;
+    if (_knowledge > 0.1) then {
+        _sharedInfo pushBack [_x, _knowledge, _leader skill "commanding"];
+    };
+} forEach allUnits;
 
 {
-    private _grpEnemies = _group getVariable [QGVAR(knownEnemies), []];
-    _grpEnemies append _knownEnemies;
-    _grpEnemies = _grpEnemies arrayIntersect _grpEnemies;
-
-    // Take care of groups not being local
-    if (!local _x) then {
-        _group setVariable [QGVAR(knownEnemies), _grpEnemies, true]; // TODO: Make use of CBA targetEvent to reduce network traffic
-    };
+    [QGVAR(shareInfo), [_x, _sharedInfo]] call CBA_fnc_localEvent;
 } forEach _groups;

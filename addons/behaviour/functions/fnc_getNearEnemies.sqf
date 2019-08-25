@@ -4,7 +4,7 @@
  * Returns an array of near enemies from a unit
  *
  * Arguments:
- * 0: Unit <OBJECT><ARRAY>
+ * 0: Unit <OBJECT><GROUP>
  * 1: Radius <NUMBER> (default: -1)
  *
  * Return Value:
@@ -18,10 +18,14 @@
 
 params ["_unit", ["_radius", -1]];
 
-// TODO: This is a temporary function state. This function should also make use of shared enemy positions and possibly make use of cached
-// values to avoid using expensive commands.
-// QGVAR(knownEnemies) is a variable storing shared enemy positions
+private _side = side _unit;
+private _enemyTargets = [];
 
-private _targets = _unit nearTargets _radius;
+{
+    private _target = _x select 4;
+    if (((_unit knowsAbout _target) > 0) && {((_side getFriend (side _target))) < 0.6}) then {
+        _enemyTargets pushBack _target;
+    };
+} forEach (_unit nearTargets _radius);
 
-_targets
+_enemyTargets

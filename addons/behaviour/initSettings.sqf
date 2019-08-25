@@ -27,3 +27,13 @@
     true,
     {}
 ] call CBA_fnc_addSetting;
+
+[
+    QGVAR(shareDistance),
+    "SLIDER",
+    "Share information distance",
+    "AAIS",
+    [0, 5000, 500, 0],
+    true,
+    {}
+] call CBA_fnc_addSetting;
