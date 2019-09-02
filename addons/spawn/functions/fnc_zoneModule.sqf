@@ -29,8 +29,26 @@ switch (_mode) do {
         private _isRectangle = if ((typeOf _logic) isEqualTo QGVAR(ZoneModule_R)) then {true} else {false};
         private _area = [_loc,_radiusX,_radiusY,_direction,_isRectangle];
         private _delay = GETVAR(_logic,zoneDelay,0);
-        private _sides = GETVAR(_logic,zoneSides,[ARR_4("BLUFOR","OPFOR","INDFOR","CIVILIAN")]);
+        private _sidesStr = GETVAR(_logic,zoneSides,[ARR_4("BLUFOR","OPFOR","INDFOR","CIVILIAN")]);
+        private _sides = [];
+        {
+            if (_x isEqualTo "BLUFOR") then {
+                _sides pushback west;
+            };
+            if (_x isEqualTo "OPFOR") then {
+                _sides pushback east;
+            };
+            if (_x isEqualTo "INDFOR") then {
+                _sides pushback independent;
+            };
+            if (_x isEqualTo "CIVILIAN") then {
+                _sides pushback Civilian;
+            };
+        } foreach _sidesStr;
         private _activatorClasses = GETVAR(_logic,zoneActivatorType,[ARR_4("Ground","Helicopter","Plane","Ship")]);
+        if ("Ground" in _activatorClasses ) then {
+            _activatorClasses pushback "Man";
+        };
         private _code = compile (_logic getVariable [QGVAR(zoneCode),""]);
         private _cond = compile (_logic getVariable [QGVAR(zoneCondition),""]);
         private _entities = [_logic] call FUNC(getSyncedObjects);

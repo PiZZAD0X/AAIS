@@ -17,10 +17,8 @@ GVAR(ZoneMonitorPFH) = [{
     {
         _x params ["_logic","_area","_delay","_sides","_activatorClasses","_cond","_code","_activationMode"];
         private _isOn = GETVAR(_logic,zoneActivated,false);
-        LOG_1("zone checked: %1",_x);
-        private _aliveplayers = ([] call CBA_fnc_players) select {
-            alive _x
-        };
+        private _aliveplayers = ([] call CBA_fnc_players) select {alive _x};
+        LOG_3("zone checked: %1 _activatorClasses: %2 _aliveplayers: %3",_x,_activatorClasses,_aliveplayers);
         private _shouldBeOn = switch (_activationMode) do {
             case "Initial": {false};
             case "Conditional": {
@@ -42,7 +40,7 @@ GVAR(ZoneMonitorPFH) = [{
             case "Custom": {
                 (call _cond);
             };
-            default {};
+            default {false};
         };
         LOG_1("_shouldBeOn: %1",_shouldBeOn);
         if (_shouldBeOn && {!_isOn}) then {

@@ -16,7 +16,7 @@
 
 params ["_logic",["_delay",0,[0]],"_code"];
 
-LOG_2("setupZone started _logic: %1 _initmode: %2",_logic,_initial);
+LOG_1("setupZone started _logic:%1",_logic);
 
 private _index = [GVAR(zoneEntities),_logic,0] call EFUNC(Core,searchNestedArray);
 private _entities = (GVAR(zoneEntities) select _index) select 1;
