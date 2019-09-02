@@ -1,5 +1,4 @@
 #include "script_component.hpp"
-
 EDEN_CHECK;
 
 params ["_unit"];
