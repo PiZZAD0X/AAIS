@@ -13,19 +13,16 @@
  * Public: No
  */
 
-params ["_arr"];
+params ["_entities"];
 
 {
-    private _vehicle = _x;
-    if (!(_vehicle isKindOf "Logic") && {!isNull _vehicle}) then {
+    private _veh = _x;
+    if (!isNull _veh && {!(_veh isKindOf "Logic")}) then {
         {
-            private _object = _x;
-            detach _object;
-            deleteVehicle _object;
-        } foreach attachedObjects _vehicle;
-        deleteVehicle _vehicle;
-        if !((group _vehicle) isEqualTo grpNull) then {
-            deleteGroup (group _vehicle);
-        };
+            detach _x;
+            deleteVehicle _x;
+        } foreach attachedObjects _veh;
+        deleteVehicle _veh;
+        (group _veh) deleteGroupWhenEmpty true;
     };
-} forEach _arr;
+} forEach _entities;

@@ -6,6 +6,7 @@ PREP(createUnit);
 PREP(createVehicle);
 PREP(createWaypoints);
 PREP(createZone);
+PREP(deleteVehicles);
 PREP(helperSpawnGroup);
 PREP(helperSpawnInfantry);
 PREP(helperSpawnVehicle);
