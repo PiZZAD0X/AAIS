@@ -6,7 +6,9 @@ ADDON = false;
 
 if !(GETMVALUE(Enabled,false)) exitWith {
     INFO("AAIS is disabled in Mission settings... exiting");
+    ADDON = true;
 };
+
 INFO("Initializing AAIS");
 
 LOG("Global Pre Init");

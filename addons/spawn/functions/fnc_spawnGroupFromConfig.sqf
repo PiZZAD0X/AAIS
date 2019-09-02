@@ -19,7 +19,6 @@
  *
  * Public: Yes
  */
-#include "script_component.hpp"
 
 params [
     ["_configEntry", "", [""]],

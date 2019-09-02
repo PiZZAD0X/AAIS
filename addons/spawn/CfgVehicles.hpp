@@ -1,5 +1,6 @@
 class CfgVehicles {
-    class CAManBase {
+    class Man; 
+    class CAManBase: Man {
         class EventHandlers {
             #include "cfg3denEH\EH.hpp"
         };

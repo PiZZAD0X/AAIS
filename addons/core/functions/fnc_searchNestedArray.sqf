@@ -18,26 +18,26 @@
  * Public: Yes
  */
 
-params ["_givenSearchArray", "_givenSearchValue", ["_desiredIndex", 0, [0]]];
+params ["_hayStackArray", "_needleValue", ["_searchIndex", 0, [0]]];
 
 scopeName "main";
 private _index = -1;
 
 {
     private _currentIndex = _forEachIndex;
-    if (_desiredIndex != -1) then {
-        if ((_x select _desiredIndex) isEqualTo _givenSearchValue) exitWith {
+    if (_searchIndex != -1) then {
+        if ((_x select _searchIndex) isEqualTo _needleValue) exitWith {
             _index = _currentIndex;
         };
     } else {
         private _nestedArray = _x;
         {
-            if (_x isEqualTo _givenSearchValue) then {
+            if (_x isEqualTo _needleValue) then {
                 _index = _currentIndex;
                 breakTo "main";
             };
         } forEach _nestedArray;
     };
-} forEach _givenSearchArray;
+} forEach _hayStackArray;
 
 _index

@@ -15,8 +15,6 @@
  * Public: No
  */
 
-LOG("Running CheckIfHC");
-
 private _hc = false;
 GVAR(HC_isHC) = false;
 GVAR(HC_ID) = false;
@@ -35,10 +33,6 @@ if (isServer) then {
     LOG_1("clientID: %1",clientowner);
 };
 
-if !(isNil QGVAR(HC_ID)) then {
-    LOG_1("HC_ID: %1",GVAR(HC_ID));
-};
-
-LOG_2("Running CheckIfHC: %1 for client %2",_hc,clientowner);
+LOG_3("Running CheckIfHC: %1 for client %2 HC_ID: %3",_hc,clientowner,GVAR(HC_ID));
 
 _hc
