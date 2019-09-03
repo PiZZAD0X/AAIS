@@ -3,6 +3,7 @@
 
 #### Behaviour
 - group handler SM
+-- track group vars and expose needed ones for map marker func
 - unit handler SM
 - commander SM
 
