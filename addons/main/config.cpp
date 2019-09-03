@@ -21,8 +21,8 @@ class CfgPatches {
 class CfgMods {
     class PREFIX {
         dir = "@aais";
-        name = "Magnetar AI";
-        picture = "A3\Ui_f\data\Logos\arma3_expansion_alpha_ca";
+        name = "ArmA AI System";
+        picture = QPATHTOF(resources\MMFWLogo);
         hidePicture = "true";
         hideName = "true";
         actionName = "Website";
