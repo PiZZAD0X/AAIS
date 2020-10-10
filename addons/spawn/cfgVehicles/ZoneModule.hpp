@@ -1,6 +1,6 @@
 class GVAR(ZoneModule): EGVAR(core,BaseModule) {
     scope = 2;
-    displayName = "AI Zone (Circle)";
+    displayName = "AI Zone";
     function = QFUNC(zoneModule);
     functionPriority = 0;
     isGlobal = 1;
@@ -9,7 +9,7 @@ class GVAR(ZoneModule): EGVAR(core,BaseModule) {
     is3DEN = 1;
     canSetArea = 1;
     canSetAreaHeight = 0;
-    canSetAreaShape = 0;
+    canSetAreaShape = 1;
     icon = QPATHTOF(resources\aizonemodule_ca.paa);
 
     class AttributeValues {
@@ -71,13 +71,5 @@ class GVAR(ZoneModule): EGVAR(core,BaseModule) {
             defaultValue = "''";
             activationTypes[] = {"Custom","CustomConditional","Conditional"};
         };
-    };
-};
-
-class GVAR(ZoneModule_R): GVAR(ZoneModule) {
-    displayName = "AI Zone (Square)";
-    class AttributeValues {
-        size3[] = {100,100,0};
-        IsRectangle = 1;
     };
 };

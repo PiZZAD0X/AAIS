@@ -13,28 +13,29 @@
  * Public: No
  */
 
-params ["_group"];
-private _entityWaypoints = waypoints _group;
-private _waypointDetails = [];
+params [
+    ["_entityWaypoints",[],[[]]],
+    ["_waypointDetails",[],[[]]]
+];
 {
-    private _waypointID = _x;
+    private _wayPoint = _x;
     _waypointDetails pushBack [
-        _waypointID,
-        waypointName _waypointID,
-        waypointPosition _waypointID,
-        waypointType _waypointID,
-        waypointBehaviour _waypointID,
-        waypointCombatMode _waypointID,
-        waypointSpeed _waypointID,
-        waypointFormation _waypointID,
-        waypointTimeout _waypointID,
-        waypointCompletionRadius _waypointID,
-        waypointAttachedObject _waypointID,
-        waypointAttachedVehicle _waypointID,
-        waypointHousePosition _waypointID,
-        waypointLoiterRadius _waypointID,
-        waypointScript _waypointID,
-        waypointStatements _waypointID
+        _wayPoint,
+        waypointName _wayPoint,
+        waypointPosition _wayPoint,
+        waypointType _wayPoint,
+        waypointBehaviour _wayPoint,
+        waypointCombatMode _wayPoint,
+        waypointSpeed _wayPoint,
+        waypointFormation _wayPoint,
+        waypointTimeout _wayPoint,
+        waypointCompletionRadius _wayPoint,
+        waypointAttachedObject _wayPoint,
+        waypointAttachedVehicle _wayPoint,
+        waypointHousePosition _wayPoint,
+        waypointLoiterRadius _wayPoint,
+        waypointScript _wayPoint,
+        waypointStatements _wayPoint
     ];
 } foreach _entityWaypoints;
 _waypointDetails

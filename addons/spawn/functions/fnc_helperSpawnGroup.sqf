@@ -24,6 +24,8 @@ params ["_units", "_side", "_position", "_settings"];
 
 _position = _position call CBA_fnc_getPos;
 
+TRACE_4("",_units,_side,_position,_settings);
+
 private _group = objNull;
 switch (toLower _side) do {
     case "civilian": {_group = createGroup civilian};
@@ -53,4 +55,4 @@ if !(_template isEqualTo "") then {
 
 [_group, _settings] call EFUNC(core,applyOptionsPreSpawn);
 
-[DFUNC(spawnUnitsGroupPFH), 0.1, _group] call CBA_fnc_addPerFrameHandler;
+[DFUNC(spawnUnitsConfigGroupPFH), 0.1, _group] call CBA_fnc_addPerFrameHandler;

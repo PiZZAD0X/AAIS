@@ -17,19 +17,27 @@
  * Public: No
  */
 
-params ["", ""];
-
 if (GVAR(spawnQueue) isEqualTo []) exitWith {
     [GVAR(spawnGroupPFH)] call CBA_fnc_removePerFrameHandler;
     GVAR(spawnGroupPFH) = -1;
 };
 
-private _toSpawn = GVAR(spawnQueue) deleteAt 0;
-_toSpawn params [
-    ["_entity", [], [[]]],
-    ["_side", "", [""]],
-    ["_position", [], [[]]],
-    ["_settings", []]
+private _queueArray = GVAR(spawnQueue) deleteAt 0;
+TRACE_1("",_queueArray);
+
+_queueArray params [
+    ["_configMode", true, [true]],
+    ["_toSpawn", [], [[]]]
 ];
 
-[_entity, _side, _position, _settings] call FUNC(helperSpawnGroup);
+if (_configMode) then {
+    _toSpawn params [
+        ["_entity", [], [[]]],
+        ["_side", "", [""]],
+        ["_position", [], [[]]],
+        ["_settings", []]
+    ];
+    [_entity, _side, _position, _settings] call FUNC(helperSpawnGroup);
+} else {
+    [_toSpawn, false] call FUNC(createGroup);
+};

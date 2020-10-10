@@ -19,43 +19,33 @@ switch (_mode) do {
         if (isMultiplayer && {!isDedicated || hasInterface}) exitwith {};
         _input params ["_logic",["_isActivated",true,[true]]];
         if !(_isActivated) exitWith {};
-        
-        private _activationMode = GETVAR(_logic,zoneActivation,"Conditional");
-        private _loc = getPosATL _logic;
-        private _size = _logic getVariable ["objectArea", [100, 100]];
-        _size params ["_radiusX","_radiusY"];
-        private _direction = getDir _logic;
-        private _isRectangle = if ((typeOf _logic) isEqualTo QGVAR(ZoneModule_R)) then {true} else {false};
-        private _area = [_loc,_radiusX,_radiusY,_direction,_isRectangle];
-        private _delay = GETVAR(_logic,zoneDelay,0);
-        private _sides = GETVAR(_logic,zoneSides,[ARR_4("BLUFOR","OPFOR","INDFOR","CIVILIAN")]);
-        private _activatorClasses = GETVAR(_logic,zoneActivatorType,[ARR_4("Ground","Helicopter","Plane","Ship")]);
-        private _code = compile (_logic getVariable [QGVAR(zoneCode),""]);
-        private _cond = compile (_logic getVariable [QGVAR(zoneCondition),""]);
-        private _entities = [_logic] call FUNC(getSyncedObjects);
-        
-        LOG_2("_logic: %1 _entities: %2",_logic,_entities);
 
-        GVAR(Zones) pushBack [
-            _logic,
-            _area,
-            _delay,
-            _sides,
-            _activatorClasses,
-            _cond,
-            _code,
-            _activationMode
-        ];
-
-        LOG_1("_zone added to Zones array: %1",_logic);
-        LOG_2("_zone: %1 entities: %2",_logic,_entities);
-        GVAR(zoneEntities) pushBack [_logic,_entities];
+        private _ZoneModules = [_logic,[QGVAR(ZoneModule),QGVAR(ZoneModule_R)]] call FUNC(getSyncedModules);
         
-        if (_activationMode isEqualTo "Initial") then {
-            [_logic,_code,_entities] call FUNC(setupZoneInitial);
-            SETVAR(_logic,zoneActivated,true);
-            LOG_1("_logic: %1 initially activated",_logic);
-        }
+        if (_ZoneModules isEqualTo []) then {
+            private _position = getPosATL _logic;
+            private _size = _logic getVariable ["objectArea", [100, 100]];
+            _size params ["_radiusX","_radiusY"];
+            private _direction = getDir _logic;
+            private _areaConfig = [_position,_radiusX,_radiusY,_direction];
+            private _configSelect = GETVAR(_logic,configSelect,"NONE");
+            private _groupSide = GETVAR(_logic,groupSide,"WEST");
+            private _groupName = GETVAR(_logic,groupName,"");
+            private _groupInit = GETVAR(_logic,groupInit,"");
+            private _groupProbabilityPresence = GETVAR(_logic,groupProbabilityPresence,100);
+            private _groupStance = GETVAR(_logic,groupStance,"auto");
+            private _groupForceLights = GETVAR(_logic,groupForceLights,0);
+            private _groupTask = GETVAR(_logic,groupTask,"Patrol");
+            private _groupPatrolRadius = GETVAR(_logic,groupPatrolRadius,30);
+            private _groupWaypointWait = GETVAR(_logic,groupWaypointWait,3);
+            private _groupTaskTimer = GETVAR(_logic,groupTaskTimer,0);
+            private _groupCreateRadius = GETVAR(_logic,groupCreateRadius,0);
+            private _groupMultiplier = GETVAR(_logic,groupMultiplier,1);
+            private _groupOccupyOption = GETVAR(_logic,groupOccupyOption,"Off");
+            
+            [_logic,_areaConfig,_configSelect] call FUNC(spawnGroupFromConfig);
+        };
+
     };
     case "attributesChanged3DEN": {};
     default {};

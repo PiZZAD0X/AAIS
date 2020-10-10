@@ -36,6 +36,9 @@
 
 #define AAIS_DEPRECATED(arg1,arg2,arg3) WARNING_3("%1 is deprecated. Support will be dropped in version %2. Replaced by: %3",arg1,arg2,arg3)
 
+#define MGVAR(var1) DOUBLES(PREFIX,var1)
+#define QMGVAR(var1) QUOTE(MGVAR(var1))
+
 #define GETMVALUE(var1,var2) getMissionConfigValue [ARR_2(QUOTE(TRIPLES(PREFIX,COMPONENT,var1)),var2)]
 #define EGETMVALUE(var1,var2,var3) getMissionConfigValue [ARR_2(QUOTE(TRIPLES(PREFIX,var1,var2)),var3)]
 
@@ -83,13 +86,12 @@ private _argUpper = toUpper(#ARG);\
 if (isNil QEGVAR(Core,Enabled)) then {\
     EGVAR(Core,Enabled) = EGETMVALUE(Core,Enabled,false);\
 };\
-if ((_argUpper isEqualto "SERVER") && {(((!isServer) && isMultiplayer) || (!(EGVAR(Core,Enabled))))}) exitWith {}; \
-if ((_argUpper isEqualto "CLIENT") && {((!hasinterface) || (!(EGVAR(Core,Enabled))))}) exitWith {};\
-if ((_argUpper isEqualto "HC") && {(((hasinterface || isServer) && isMultiplayer) || (!(EGVAR(Core,Enabled))))}) exitWith {};\
-if ((_argUpper isEqualto "CLIENTHC") && {(((isDedicated) && isMultiplayer) || (!(EGVAR(Core,Enabled))))}) exitWith {};\
-if ((_argUpper isEqualto "SERVERHC") && {(((hasinterface) && isMultiplayer) || (!(EGVAR(Core,Enabled))))}) exitWith {};\
-if ((_argUpper isEqualto "ALL") && {(!(EGVAR(Core,Enabled)))}) exitWith {};\
-if !(EGVAR(Core,Enabled)) exitWith {}
+if !(EGVAR(Core,Enabled)) exitWith {}; \
+if ((_argUpper isEqualto "SERVER") && {!isServer && {isMultiplayer}}) exitWith {}; \
+if ((_argUpper isEqualto "CLIENT") && {!hasinterface}) exitWith {};\
+if ((_argUpper isEqualto "HC") && {(hasinterface || {isServer}) && {isMultiplayer}}) exitWith {};\
+if ((_argUpper isEqualto "CLIENTHC") && {isDedicated && {isMultiplayer}}) exitWith {};\
+if ((_argUpper isEqualto "SERVERHC") && {hasinterface && {isMultiplayer}}) exitWith {};\
 
 #define EDEN_CHECK if !(is3DEN) exitwith {}
 

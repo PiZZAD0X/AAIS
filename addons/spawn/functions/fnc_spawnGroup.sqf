@@ -20,27 +20,23 @@
  * Public: Yes
  */
 
-// Execute only on HCs or Servers
-if (hasInterface && {!isServer}) exitWith {
-    ERROR("Function called in a client during a multiplayer session.")
-};
+// Execute only on HCs
+EXEC_CHECK(HC);
 
 params [
     ["_units", [], [[]]],
-    ["_marker", "", ["", []]],
+    ["_area", [], [[]]],
     ["_type", "", [""]],
     ["_side", "", [""]],
     ["_position", [], [[], objNull, grpNull, locationNull], [2, 3]],
     ["_options", [], [[]]]
 ];
 
-if (!([_marker] call EFUNC(waypoint,checkMarkerInput))) exitWith {};
-
 private _settings = [] call CBA_fnc_hashCreate;
-_settings = [_settings, _marker, _type] call EFUNC(core,setBasicSettings);
+_settings = [_settings, _area, _type] call EFUNC(core,setBasicSettings);
 [_settings, _options] call EFUNC(core,parseOptions);
 
-GVAR(spawnQueue) pushBack [_units, _side, _position, _settings];
+GVAR(spawnQueue) pushBack [true,[_units, _side, _position, _settings]];
 
 if (GVAR(spawnGroupPFH) == -1) then {
     GVAR(spawnGroupPFH) = [DFUNC(spawnGroupPFH), 1, []] call CBA_fnc_addPerFrameHandler;

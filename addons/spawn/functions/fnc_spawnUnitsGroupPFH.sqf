@@ -1,4 +1,5 @@
 #include "script_component.hpp"
+
 /*
  * Author: TheMagnetar
  * Spawn PFH.
@@ -15,180 +16,63 @@
  *
  * Public: No
  */
+ 
+params ["_args", "_idPFH"];
 
-params ["_group", "_handle"];
+_args params [
+    "_group",
+    "_groupSet",
+    "_groupMem",
+    ["_groupVeh", [], [[]]],
+    ["_unitIndex", 0, [0]]
+];
 
-private _unitsToSpawn = _group getVariable [QGVAR(unitsToSpawn), []];
+_groupSet params [
+    /* 0 */ "_side",
+    /* 1 */ "_groupPos",
+    /* 2 */ "_behaviour",
+    /* 3 */ "_combat",
+    /* 4 */ "_speed",
+    /* 5 */ "_formation",
+    /* 6 */ "_groupStance",
+    /* 7 */ "_groupInit",
+    /* 8 */ "_createRadius",
+    /* 9 */ "_taskRadius",
+    /* 10 */ "_wait",
+    /* 11 */ "_startBld",
+    /* 12 */ "_task",
+    /* 13 */ "_taskTimer",
+    /* 14 */ "_multi",
+    /* 15 */ "_occupyOption",
+    /* 16 */ "_waypoints",
+    /* 17 */ "_onWater",
+    /* 18 */ "_fl",
+    /* 19 */ "_surrender",
+    /* 20 */ "_tracker",
+    /* 21 */ "_storedVars",
+    /* 22 */ "_name",
+    /* 23 */ "_groupID",
+    /* 24 */ "_areaAssigned",
+    /* 25 */ "_assetType"
+];
 
-if (_unitsToSpawn isEqualTo []) exitWith {
-    [_handle] call CBA_fnc_removePerFrameHandler;
-    _group setVariable [QEGVAR(core,startPosition), nil];
-    _group setVariable [QGVAR(template), nil];
-    _group setVariable [QGVAR(unitsToSpawn), nil];
-
-    private _settings = _group getVariable [QEGVAR(core,settings), []];
-    [_group, _settings] call EFUNC(core,applyOptions);
-
-    _group setVariable [QEGVAR(core,settings), _settings];
-
-    // Register the group
-    private _marker = _group getVariable [QEGVAR(core,registerMarker), ""];
-    [QEGVAR(core,registerGroup), [_group, _marker]] call CBA_fnc_serverEvent;
-
-    if !([_settings, "release"] call CBA_fnc_hashGet) then {
-        _group setVariable [QEGVAR(core,enabled), true];
-    };
+if (_groupVeh isEqualTo [] && {_groupVeh isEqualTo []}) exitWith {
+    [_group, _groupSet] call FUNC(finishGroupSpawn);
+    [_idPFH] call CBA_fnc_removePerFrameHandler;
 };
 
-private _pos = _group getVariable [QEGVAR(core,startPosition), [0, 0, 0]];
-private _position = [0, 0, 0];
-if ((_pos select 0) isEqualType []) then {
-    _position = _pos deleteAt 0;
+if (_groupVeh isEqualTo []) then {
+    private _toSpawn = _groupMem deleteAt 0;
+    _args set [2, _groupMem];
+    TRACE_1("",_toSpawn);
+
+    [false, _group, _groupPos, _startBld, _unitIndex, _toSpawn, _taskRadius] call FUNC(createUnit);
+    _unitIndex = _unitIndex + 1;
+    _args set [4, _unitIndex];
 } else {
-    _position = _pos;
-};
-private _unitType = _unitsToSpawn deleteAt 0;
+    private _toSpawn = _groupVeh deleteAt 0;
+    _args set [3, _groupVeh];
+    TRACE_1("",_toSpawn);
 
-private _templateValues = _group getVariable [QGVAR(template), []];
-private _useTemplate = !(_templateValues isEqualTo []);
-private _applyTemplate = {
-    params ["_unit", "_loadout", "_rank", "_skill"];
-
-    _unit setUnitLoadout _loadout;
-    _unit setRank _rank;
-    _unit setSkill _skill;
-};
-
-if (_unitType isEqualType "") then {
-    private _unitPos = _position findEmptyPosition [0, 60, _unitType];
-    private _spawnedUnit = _group createUnit [_unitType, _unitPos, [], 2, "FORM"];
-
-    if (isNull (_group getVariable [QEGVAR(core,leader), objNull])) then {
-        _group selectLeader _spawnedUnit;
-        _group setVariable [QEGVAR(core,leader), _spawnedUnit];
-    };
-
-    if (_useTemplate) then {
-        _templateValues params ["_loadout", "_rank", "_skill"];
-        [_spawnedUnit, _loadout deleteAt 0, _rank deleteAt 0, _skill deleteAt 0] call _applyTemplate;
-    };
-} else {
-    _unitType params ["_vehicle", ["_crew", []], ["_cargo", []], ["_pilots",[]]];
-
-    _templateValues params ["_loadout", "_rank", "_skill"];
-    (_loadout select 0) params ["_loadoutVeh", "_loadoutCrew", "_loadoutCargo", "_loadoutPilots"];
-    (_rank select 0) params ["_rankCrew", "_rankCargo", "_rankPilots"];
-    (_skill select 0) params ["_skillCrew", "_skillCargo", "_skillPilots"];
-
-    private _unitPos = _position findEmptyPosition [0, 60, _vehicle];
-
-    private _vehicleUnit = createVehicle [_vehicle, _unitPos, [], 20, "FORM"];
-    private _vehicleRoles = fullCrew [_vehicleUnit, "", true];
-    private _turrets = allTurrets [_vehicleUnit, false];
-    private _hasCommander = false;
-    private _hasGunner = false;
-
-    private _handleUnitCreation = {
-        params ["_group", "_unit", "_loadout", "_rank", "_skill", "_useTemplate"];
-
-        private _nullPos = [0, 0, 0];
-        private _spawnedUnit = _group createUnit [_unit, _nullPos, [], 0, "CAN_COLLIDE"];
-
-        if (_useTemplate) then {
-            [_spawnedUnit, _loadoutPilots deleteAt 0, _rankPilots deleteAt 0, _skillPilots deleteAt 0] call _applyTemplate;
-        };
-
-        _spawnedUnit
-    };
-
-    {
-        private _role = toLower (_x select 1);
-        private _unit = objNull;
-
-        switch (_role) do {
-            case "driver": {
-                if (_vehicle isKindOf "Air") then {
-                    if !(_pilots isEqualTo []) then {
-                        _unit = [_group, _pilots deleteAt 0, _loadoutPilots deleteAt 0, _rankPilots deleteAt 0, _skillPilots deleteAt 0, _useTemplate] call _handleUnitCreation;
-                    };
-                } else {
-                    if !(_crew isEqualTo []) then {
-                        _unit = [_group, _crew deleteAt 0, _loadoutCrew deleteAt 0, _rankCrew deleteAt 0, _skillCrew deleteAt 0, _useTemplate] call _handleUnitCreation;
-                    };
-                };
-                _unit moveInDriver _vehicleUnit;
-            };
-
-            case "gunner": {
-                if (_vehicle isKindOf "Air") then {
-                    if !(_pilots isEqualTo []) then {
-                        _unit = [_group, _pilots deleteAt 0, _loadoutPilots deleteAt 0, _rankPilots deleteAt 0, _skillPilots deleteAt 0, _useTemplate] call _handleUnitCreation;
-                    };
-                } else {
-                    if !(_crew isEqualTo []) then {
-                        _unit = [_group, _crew deleteAt 0, _loadoutCrew deleteAt 0, _rankCrew deleteAt 0, _skillCrew deleteAt 0, _useTemplate] call _handleUnitCreation;
-                    };
-                };
-                _hasGunner = true;
-                _unit moveInGunner _vehicleUnit;
-            };
-
-            case "turret": {
-                if (_vehicle isKindOf "Air" && {getNumber ([_vehicle, _x select 3] call CBA_fnc_getTurret >> "isCopilot") == 1}) then {
-                    if !(_pilots isEqualTo []) then {
-                        _unit = [_group, _pilots deleteAt 0, _loadoutPilots deleteAt 0, _rankPilots deleteAt 0, _skillPilots deleteAt 0, _useTemplate] call _handleUnitCreation;
-                    };
-                } else {
-                    if (_x select 3 in _turrets) then {
-                        if !(_crew isEqualTo []) then {
-                            _unit = [_group, _crew deleteAt 0, _loadoutCrew deleteAt 0, _rankCrew deleteAt 0, _skillCrew deleteAt 0, _useTemplate] call _handleUnitCreation;
-                        };
-                    } else {
-                        if !(_cargo isEqualTo []) then {
-                            _unit = [_group, _cargo deleteAt 0, _loadoutCargo deleteAt 0, _rankCargo deleteAt 0, _skillCargo deleteAt 0, _useTemplate] call _handleUnitCreation;
-                        };
-                    };
-                };
-                _unit moveInTurret [_vehicleUnit, _x select 3];
-            };
-
-            case "commander": {
-                if !(_crew isEqualTo []) then {
-                    _unit = [_group, _crew deleteAt 0, _loadoutCrew deleteAt 0, _rankCrew deleteAt 0, _skillCrew deleteAt 0, _useTemplate] call _handleUnitCreation;
-
-                    _hasCommander = true;
-                    _unit moveInCommander _vehicleUnit;
-                };
-            };
-
-            case "cargo": {
-                if !(_cargo isEqualTo []) then {
-                    _unit = [_group, _cargo deleteAt 0, _loadoutCargo deleteAt 0, _rankCargo deleteAt 0, _skillCargo deleteAt 0, _useTemplate] call _handleUnitCreation;
-
-                    _unit assignAsCargoIndex [_vehicleUnit, _x select 2];
-                    _unit moveInCargo _vehicleUnit;
-                };
-            };
-        };
-    } forEach _vehicleRoles;
-
-    if (isNull (_group getVariable [QEGVAR(core,leader), objNull])) then {
-        private _leader = objNull;
-
-        if (_hasCommander) then {
-            _leader = commander _vehicleUnit;
-        } else {
-            if (_vehicleUnit isKindOf "Air") then {
-                _leader = driver _vehicleUnit;
-            } else {
-                if (_hasGunner) then {
-                    _leader = gunner _vehicleUnit;
-                } else {
-                    _leader = driver _vehicleUnit
-                };
-            };
-        };
-
-        _group setVariable [QEGVAR(core,leader), _leader];
-    };
+    _toSpawn call FUNC(createVehicle);
 };

@@ -15,14 +15,19 @@
 
 params ["_entities"];
 
-{
-    private _veh = _x;
-    if (!isNull _veh && {!(_veh isKindOf "Logic")}) then {
-        {
+_entities apply {
+    private _obj = _x;
+    if !(_obj isEqualTo objNull) then {
+        attachedObjects _obj apply {
             detach _x;
             deleteVehicle _x;
-        } foreach attachedObjects _veh;
-        deleteVehicle _veh;
-        (group _veh) deleteGroupWhenEmpty true;
+        };
+        //crew _obj apply {
+        //    _obj deleteVehicleCrew _x
+        //};
+        deleteVehicle _obj;
+        if !(group _obj isEqualTo grpNull) then {
+            deleteGroup group _obj;
+        };
     };
-} forEach _entities;
+};

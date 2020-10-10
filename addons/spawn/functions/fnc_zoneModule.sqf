@@ -23,10 +23,8 @@ switch (_mode) do {
         
         private _activationMode = GETVAR(_logic,zoneActivation,"Conditional");
         private _loc = getPosATL _logic;
-        private _size = _logic getVariable ["objectArea", [100, 100]];
-        _size params ["_radiusX","_radiusY"];
-        private _direction = getDir _logic;
-        private _isRectangle = if ((typeOf _logic) isEqualTo QGVAR(ZoneModule_R)) then {true} else {false};
+        private _size = _logic getVariable ["objectArea", [100, 100, 0, false]];
+        _size params ["_radiusX","_radiusY", "_direction", "_isRectangle"];
         private _area = [_loc,_radiusX,_radiusY,_direction,_isRectangle];
         private _delay = GETVAR(_logic,zoneDelay,0);
         private _sidesStr = GETVAR(_logic,zoneSides,[ARR_4("BLUFOR","OPFOR","INDFOR","CIVILIAN")]);
@@ -46,22 +44,57 @@ switch (_mode) do {
             };
         } foreach _sidesStr;
         private _activatorClasses = GETVAR(_logic,zoneActivatorType,[ARR_4("Ground","Helicopter","Plane","Ship")]);
-        if ("Ground" in _activatorClasses ) then {
-            _activatorClasses pushback "Man";
+        if ("Ground" in _activatorClasses) then {
+            _activatorClasses pushBackUnique "Man";
         };
-        private _code = compile (_logic getVariable [QGVAR(zoneCode),""]);
-        private _cond = compile (_logic getVariable [QGVAR(zoneCondition),""]);
-        private _entities = [_logic] call FUNC(getSyncedObjects);
-        private _configs = [_logic,[QGVAR(ConfigModule)]] call FUNC(getSyncedModules);
-        private _templates = [_logic,[QGVAR(Templates)]] call FUNC(getSyncedModules);
         
+        private _code = compile (_logic getVariable [QGVAR(zoneCode),""]);
+        SETPVAR(_logic,code,_code);
+        private _cond = compile (_logic getVariable [QGVAR(zoneCondition),""]);
+        SETPVAR(_logic,cond,_cond);
+        private _entities = [_logic] call FUNC(getSyncedObjects);
+        SETPVAR(_logic,entities,_entities);
         LOG_2("_logic: %1 _entities: %2",_logic,_entities);
-        if !(_configs isEqualTo []) then {
-            LOG_2("_logic: %1 _configs: %2",_logic,_configs);
+        
+        private _configs = [];
+        private _configModules = [_logic,[QGVAR(ConfigModule)]] call FUNC(getSyncedModules);
+        if !(_configModules isEqualTo []) then {
+            LOG_2("_logic: %1 _configModules: %2",_logic,_configModules);
+            
+            {
+                private _logicConfig = _x;
+                private _position = getPosATL _logicConfig;
+                private _size = _logicConfig getVariable ["objectArea", [100, 100]];
+                _size params ["_radiusX","_radiusY"];
+                private _direction = getDir _logicConfig;
+                private _areaConfig = [_position,_radiusX,_radiusY,_direction];
+                private _configSelect = GETVAR(_logicConfig,configSelect,"NONE");
+                private _groupSide = GETVAR(_logicConfig,groupSide,"WEST");
+                private _groupName = GETVAR(_logicConfig,groupName,"");
+                private _groupInit = GETVAR(_logicConfig,groupInit,"");
+                private _groupProbabilityPresence = GETVAR(_logicConfig,groupProbabilityPresence,100);
+                private _groupStance = GETVAR(_logicConfig,groupStance,"auto");
+                private _groupForceLights = GETVAR(_logicConfig,groupForceLights,0);
+                private _groupTask = GETVAR(_logicConfig,groupTask,"Patrol");
+                private _groupPatrolRadius = GETVAR(_logicConfig,groupPatrolRadius,30);
+                private _groupWaypointWait = GETVAR(_logicConfig,groupWaypointWait,3);
+                private _groupTaskTimer = GETVAR(_logicConfig,groupTaskTimer,0);
+                private _groupCreateRadius = GETVAR(_logicConfig,groupCreateRadius,0);
+                private _groupMultiplier = GETVAR(_logicConfig,groupMultiplier,1);
+                private _groupOccupyOption = GETVAR(_logicConfig,groupOccupyOption,"Off");
+                
+                _configs pushback [_logicConfig,_area,_configSelect,_groupMultiplier];
+            } foreach _configModules;
+            
         };
-        if !(_templates isEqualTo []) then {
-            LOG_2("_logic: %1 _templates: %2",_logic,_templates);
+        SETPVAR(_logic,configs,_configs);
+        
+        private _templates = [];
+        private _templateModules = [_logic,[QGVAR(Templates)]] call FUNC(getSyncedModules);
+        if !(_templateModules isEqualTo []) then {
+            LOG_2("_logic: %1 _templateModules: %2",_logic,_templateModules);
         };
+        SETPVAR(_logic,templates,_templates);
 
         GVAR(Zones) pushBack [
             _logic,
@@ -73,13 +106,11 @@ switch (_mode) do {
             _code,
             _activationMode
         ];
-
-        LOG_1("_zone added to Zones array: %1",_logic);
-        LOG_2("_zone: %1 entities: %2",_logic,_entities);
-        GVAR(zoneEntities) pushBack [_logic,_entities];
+        
+        publicVariable QGVAR(Zones);
         
         if (_activationMode isEqualTo "Initial") then {
-            [_logic,_code,_entities] call FUNC(setupZoneInitial);
+            [_logic, true] call FUNC(spawnZone);
             SETVAR(_logic,zoneActivated,true);
             LOG_1("_logic: %1 initially activated",_logic);
         }

@@ -17,7 +17,10 @@
  * Public: No
  */
 
-params ["_settings", "_marker", "_type"];
+params ["_settings", "_area", "_type"];
+
+_area params ["_pos","_radiusX","_radiusY","_direction","_isRectangle"];
+private _largerRadius = if (_radiusX > _radiusY) then {_radiusY} else {_radiusX};
 
 if !([_settings] call CBA_fnc_isHash) exitWith {
     WARNING_1("Passed argument is not a valid CBA Hash: %1",_settings);
@@ -25,11 +28,9 @@ if !([_settings] call CBA_fnc_isHash) exitWith {
 };
 
 [_settings, "blacklist", []] call CBA_fnc_hashSet;
-[_settings, "deleteSpawnMarkers", false] call CBA_fnc_hashSet;
 [_settings, "fullCache", false] call CBA_fnc_hashSet;
-[_settings, "marker", _marker] call CBA_fnc_hashSet;
+[_settings, "area", _area] call CBA_fnc_hashSet;
 [_settings, "type", _type] call CBA_fnc_hashSet;
-[_settings, "waypointMarkers", []] call CBA_fnc_hashSet;
 
 [_settings, "skillLeader", []] call CBA_fnc_hashSet;
 [_settings, "skill", []] call CBA_fnc_hashSet;
@@ -48,7 +49,7 @@ if !([_settings] call CBA_fnc_isHash) exitWith {
 [_settings, "randomPosition", false] call CBA_fnc_hashSet;
 [_settings, "reinforcement", true] call CBA_fnc_hashSet;
 [_settings, "execWaypoint", ""] call CBA_fnc_hashSet;
-[_settings, "perimeterSettings", [[_marker] call CBA_fnc_getPos, 100]] call CBA_fnc_hashSet;
+[_settings, "perimeterSettings", [[_pos] call CBA_fnc_getPos, _largerRadius]] call CBA_fnc_hashSet;
 
 [_settings, "init", ""] call CBA_fnc_hashSet;
 [_settings, "preSpawn", ""] call CBA_fnc_hashSet;

@@ -108,10 +108,10 @@ class GVAR(GroupBehaviour) {
         class GVAR(patrolRadius) {
             property = QGVAR(patrolRadius);
             displayName = "Task Radius";
-            tooltip = "Radius that Group will conduct the assigned task in. Default: 30m";
-            control = QEGVAR(Core,0to250Step10_Slider);
+            tooltip = "Radius that Group will conduct the assigned task in. Default: 100m";
+            control = QEGVAR(Core,50to500Step10_Slider);
             expression = ENTITY_EXPRESSION;
-            defaultValue = "30";
+            defaultValue = "100";
         };
         class GVAR(waypointWait) {
             property = QGVAR(waypointWait);

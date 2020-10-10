@@ -21,8 +21,11 @@ private _settings = _group getVariable [QEGVAR(core,settings), []];
 private _target = _group getVariable [QGVAR(targetAttack), objNull];
 
 if (isNull _target) then {
-    private _marker = [_settings, "marker"] call CBA_fnc_hashGet;
-    _target = [_marker] call EFUNC(waypoint,selectRandomMarker);
+    private _allowWater = [_settings, "allowWater"] call CBA_fnc_hashGet;
+    private _allowLand = [_settings, "allowLand"] call CBA_fnc_hashGet;
+    private _forceRoads = [_settings, "forceRoads"] call CBA_fnc_hashGet;
+    private _area = [_settings, "area"] call CBA_fnc_hashGet;
+    _target = [_area, [_allowWater, _allowLand, _forceRoads], [0, 50, (leader _group)]] call EFUNC(waypoint,areaRandomPos);
     _group setVariable [QGVAR(targetAttack), _target];
 };
 

@@ -10,5 +10,5 @@ class CfgVehicles {
 
     #include "cfgVehicles\ZoneModule.hpp"
     #include "cfgVehicles\ConfigModule.hpp"
-    #include "cfgVehicles\TemplateModule.hpp"
+    //#include "cfgVehicles\TemplateModule.hpp"
 };

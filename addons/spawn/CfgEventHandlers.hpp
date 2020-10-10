@@ -8,11 +8,21 @@ class Extended_PreStart_EventHandlers {
 class Extended_PreInit_EventHandlers {
     class ADDON {
         init = QUOTE(call COMPILE_FILE(XEH_preInit));
+        serverInit = QUOTE(call COMPILE_FILE(XEH_preInitServer));
+        clientInit = QUOTE(call COMPILE_FILE(XEH_preInitClient));
     };
 };
 
 class Extended_PostInit_EventHandlers {
     class ADDON {
         init = QUOTE(call COMPILE_FILE(XEH_postInit));
+    };
+};
+
+class Extended_InitPost_EventHandlers {
+    class CAManBase {
+        class ADDON {
+            init = QUOTE(_this call FUNC(initPostMan));
+        };
     };
 };

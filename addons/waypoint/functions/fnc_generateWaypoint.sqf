@@ -19,16 +19,14 @@
  * Public: No
  */
 
-params [["_group", objNull], "_marker", ["_options", []]];
+params [["_group", objNull], "_area", ["_options", []]];
 
 if (!local _group) exitWith {};
+    
+_area params ["_center","_sizeX","_sizeY","_direction","_isRectangle"];
 
 private _settings = _group getVariable [QEGVAR(core,settings), []];
 
-_marker = [_marker] call FUNC(selectRandomMarker);
-
-private _sizeX = (markerSize _marker) select 0;
-private _sizeY = (markerSize _marker) select 1;
 private _minimumDistance = 2/3*sqrt(_sizeX^2 + _sizeY^2);
 
 if (_settings isEqualTo []) exitWith {
@@ -47,11 +45,21 @@ if (_blackListedMarkers isEqualTo "") then {
 
 private _targetPos = _currentPos;
 
+private "_rndFunction";
+if (_isRectangle) then {
+    _rndFunction = missionNamespace getVariable QFUNC(recMarkerRandomPos);
+} else {
+    _rndFunction = missionNamespace getVariable QFUNC(elipMarkerRandomPos);
+};
+
+private _centerX = abs (_center select 0);
+private _centerY = abs (_center select 1);
+
 // Delete all waypoints
 [_group] call FUNC(clearWaypoints);
 _targetPos = _currentPos;
 while {_tries < 50} do {
-    private _trialPos = [_marker, [_allowWater, _allowLand, _forceRoads], [0, 50, ""], _blackListedMarkers] call FUNC(markerRandomPos);
+    private _trialPos = [_sizeX, _sizeY, _centerX, _centerY, _direction] call _rndFunction;
 
     TRACE_3("waypoint at %1. Minimum distance %2. Greater than minimum distance %3",_trialPos,_minimumDistance,_trialPos distance2D _currentPos >= _minimumDistance);
 

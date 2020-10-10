@@ -13,7 +13,7 @@
  * Waypoint <WAYPOINT>
  *
  * Example:
- * [group player, getPos _target, "MOVE", "hint 'moving'"] call aais_waypoint_fnc_generateWaypoint
+ * [group player, getPos _target, "MOVE", "hint 'moving'"] call aais_waypoint_fnc_addWaypoint
  *
  * Public: No
  */

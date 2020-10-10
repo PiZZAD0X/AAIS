@@ -1,17 +1,15 @@
 #### General
-- debug map marker function
+
 
 #### Behaviour
-- group handler SM
--- track group vars and expose needed ones for map marker func
 - unit handler SM
 - commander SM
+- add tasks from script module
 
 #### Editor Sync
 - task module & function 
 - task sync interrupt function -> if synced with control classes move to queue
 - zone module <-> template/config module sync functionality
-- editor sync -> pfh spawner
 
 #### Config Spawn
 - config module function

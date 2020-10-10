@@ -20,17 +20,28 @@
  * Public: No
  */
 
-params ["_configEntry", "_settings", "_side", "_size", ["_targetPos", []]];
+params ["_configEntry", "_settings", "_side", "_size", ["_targetPos", []], ["_isMissionCfg",false,[false]]];
 
-private _vehiclePool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "vehicles");
-private _crewPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "crew");
-private _cargoLeaders = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargoLeaders");
-private _cargoPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargo");
-private _pilotPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "pilot");
-private _random = (getNumber (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "random")) == 1;
+private ["_vehiclePool","_crewPool","_cargoLeaders","_cargoPool","_pilotPool","_random"];
+
+if (_isMissionCfg) then {
+    _vehiclePool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "vehicles");
+    _crewPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "crew");
+    _cargoLeaders = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargoLeaders");
+    _cargoPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargo");
+    _pilotPool = getArray (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "pilot");
+    _random = (getNumber (missionConfigFile >> "CfgGroupCompositions" >> _configEntry >> "random")) == 1;
+} else {
+    _vehiclePool = getArray (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "vehicles");
+    _crewPool = getArray (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "crew");
+    _cargoLeaders = getArray (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargoLeaders");
+    _cargoPool = getArray (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "cargo");
+    _pilotPool = getArray (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "pilot");
+    _random = (getNumber (ConfigFile >> "CfgGroupCompositions" >> _configEntry >> "random")) == 1;
+};
 
 _size params ["_groupSize", "_cargoSize"];
-if (_random) then {
+if ((_groupSize != 0) && {_random}) then {
     {
         if (count _x > 1) then {
            _x = [_x, 10] call EFUNC(core,shuffleArray);
@@ -38,6 +49,7 @@ if (_random) then {
     } forEach [_vehiclePool, _crewPool, _cargoLeaders, _cargoPool, _pilotPool];
 } else {
     _groupSize = count _vehiclePool;
+    _cargoSize = count _cargoPool + count _cargoLeaders;
 };
 
 private _spawnVehicles = [];
@@ -113,7 +125,7 @@ for "_i" from 1 to _groupSize do {
     _spawnVehicles pushBack [_vehicle, _crewUnits, _cargoUnits, _pilots];
 };
 
-GVAR(spawnQueue) pushBack [_spawnVehicles, _side, _targetPos, _settings];
+GVAR(spawnQueue) pushBack [true,[_spawnVehicles, _side, _targetPos, _settings]];
 
 if (GVAR(spawnGroupPFH) == -1) then {
     GVAR(spawnGroupPFH) = [DFUNC(spawnGroupPFH), 1, []] call CBA_fnc_addPerFrameHandler;

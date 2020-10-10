@@ -21,19 +21,15 @@
  */
 
 // Execute only on HCs or Servers
-if (hasInterface && {!isServer}) exitWith {
-    ERROR("Function called in a client during a multiplayer session.")
-};
+EXEC_CHECK(HC);
 
 params [
     ["_templateName", "", [""]],
     ["_numGroups", 0, [[], 0], [2]],
-    ["_marker", "", ["", []]],
+    ["_area", [], [[]]],
     ["_position", [], [[], objNull, grpNull, locationNull], [0, 2, 3]],
     ["_overrideOptions", [], [[]]]
 ];
-
-if (!([_marker] call EFUNC(waypoint,checkMarkerInput))) exitWith {};
 
 private _template = [EGVAR(core,groupTemplates), _templateName] call CBA_fnc_hashGet;
 if !(_template isEqualType []) exitWith {
@@ -57,8 +53,8 @@ if (!_inRandomPosition && {!_inRandomBuilding} && {_position isEqualTo []}) then
 };
 
 for "_i" from 1 to _num do {
-    private _toSpawn =+ [_units, _marker, [_settings, "type"] call CBA_fnc_hashGet, _side, _position, _settings, []];
-    GVAR(spawnQueue) pushBack _toSpawn;
+    private _toSpawn =+ [_units, _area, [_settings, "type"] call CBA_fnc_hashGet, _side, _position, _settings, []];
+    GVAR(spawnQueue) pushBack [true,_toSpawn];
 };
 
 if (GVAR(spawnGroupPFH) == -1) then {

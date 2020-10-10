@@ -29,7 +29,6 @@ PREP(parseOptions);
 PREP(reenableGroup);
 PREP(removeGroup);
 PREP(restart);
-PREP(searchNestedArray);
 PREP(setBasicSettings);
 PREP(setDefaults);
 PREP(setSkill);

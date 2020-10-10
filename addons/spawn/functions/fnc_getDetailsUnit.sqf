@@ -16,36 +16,56 @@
  * Public: No
  */
 
-params ["_unit",["_pos",[],[[]]],"_vehicle",["_gStance","AUTO",[""]]];
+params [
+    "_unit", 
+    ["_pos",[],[[]]]
+];
 
-private _unitInit = (GETVAR(_unit,init,""));
-if (_unitInit isEqualType "") then {
-    _unitInit = compile _unitInit;
-};
-private _vehAssigned = if ((assignedVehicleRole _unit) isEqualTo []) then {false} else {true};
-private _stance = "AUTO";
-if !(_gStance isEqualTo "AUTO") then {
-    _stance = _gStance;
+private _unitInit = GETVAR(_unit,Init,"");
+if ((_unitInit isEqualType "") && {!(_unitInit isEqualTo "")}) then {
+     _unitInit = compile _unitInit;
 } else {
-    _stance = ["DOWN","MIDDLE","UP","AUTO"] select (GETVAR(_unit,unitPos,3));
+     _unitInit = false;
+};
+private _stance = if ((GETVAR(_unit,stance,"Auto")) isEqualTo "Auto") then {
+     unitPos _unit
+} else {
+     GETVAR(_unit,unitStance,"Auto")
+};
+if (_pos isEqualTo []) then {
+     _pos = (getposATL _unit) apply {parseNumber (_x toFixed 2)};
+};
+private _vectorDir = (vectorDir _unit) apply {parseNumber (_x toFixed 2)};
+private _vectorUp = (vectorUp _unit) apply {parseNumber (_x toFixed 2)};
+private _damage = parseNumber (damage _unit toFixed 2);
+//private _pitch = parseNumber (pitch _unit toFixed 2);
+private _identity = [
+     name _unit,
+     face _unit,
+     speaker _unit,
+     nameSound _unit,
+     pitch _unit
+];
+private _name = GETVAR(_unit,varName,"");
+private _olsenGearType = GETVAR(_unit,gearType,"");
+private _vanillaLoadout = if (_olsenGearType isEqualTo "") then {
+     []
+} else {
+     getUnitLoadout _unit
 };
 
-LOG_2("_unit:%1 stance:%2",_unit,_stance);
-LOG_4("_unit:%1 name:%2 pos: %3 passedpos: %4",_unit,(name _unit),(getpos _unit),_pos);
-
-[true,
-typeOf _unit,
-getposATL _unit,
-vectorDir _unit,
-vectorUp _unit,
-damage _unit,
-getUnitLoadout _unit,
-typeOf _vehicle,
-assignedVehicleRole _unit,
-_vehAssigned,
+[typeOf _unit,
+_pos,
+_vectorDir,
+_vectorUp,
+_damage,
+_vanillaLoadout,
+_unit getVariable ["ACE_captives_isHandcuffed",false],
 surfaceIsWater (getposATL _unit),
 _stance,
 _unitInit,
-GETVAR(_unit,name,""),
-GETVAR(_unit,identity,""),
-GETVAR(_unit,storedVars,[])]
+GETVAR(_unit,Name,""),
+_identity,
+GETVAR(_unit,storedVars,[]),
+_name,
+_olsenGearType]

@@ -15,50 +15,67 @@
  * Public: No
  */
 
-params [["_zone",objNull,[objNull]],["_entities",[],[[]]],["_delay",0,[0]],"_code"];
+params [
+    ["_zone", objNull, [objNull]],
+    ["_initial", false, [false]],
+    ["_delay", 0, [0]]
+];
 
-[{
-    params ["_zone","_entities","_code"];
-    _entities params [["_grps",[],[[]]],["_emptyvehs",[],[[]]],["_objs",[],[[]]]];
-    {
-        private _veh = _x;
-        private _vehicle = createVehicle [(_veh select 0),(_veh select 1),[],0,"CAN_COLLIDE"];
-        _vehicle setPosATL (_veh select 1);
-        _vehicle setVectorDirAndUp [_veh select 2,_veh select 3];
-        _vehicle setDamage (_veh select 4);
-        _vehicle setFuel (_veh select 5);
-        {
-            _x params [["_class","",[""]],["_path",[],[[]]],["_ammo",0,[0]]];
-            _vehicle setMagazineTurretAmmo [_class,_ammo,_path];
-        } forEach (_veh select 6);
-        _vehicle lock (_veh select 7);
-        if ((count (_veh select 9)) > 1) then {
-            missionNamespace setVariable[(_veh select 9), _vehicle];
+LOG_1("createZone started _zone: %1", _zone);
+
+private _createZone = {
+    params ["_zone", "_initial"];
+
+    private _entities = GETVAR(_zone,entities,[]);
+    private _configs = GETVAR(_zone,configs,[]);
+    private _templates = GETVAR(_zone,templates,[]);
+    private _code = GETVAR(_zone,code,{});
+        
+    LOG_2("%1 _entities: %2", _zone, _entities);
+    
+    _entities params [
+        ["_groups",[],[[]]],
+        ["_emptyVehs",[],[[]]],
+        ["_objects",[],[[]]]
+    ];
+    
+    _emptyVehs apply {
+        _x call FUNC(createEmptyVehicle);
+    };
+
+    _objects apply {
+        _x call FUNC(createObject);
+    };
+    
+    if !(_configs isEqualto []) then {
+        _configs apply {
+            _x call FUNC(spawnGroupFromConfig);
         };
-        [_vehicle,(_veh select 10)] call FUNC(setPersistent);
-        _vehicle call (_veh select 11);
-    } forEach _emptyvehs;
-    {
-        private _obj = _x;
-        private _object = createVehicle [(_obj select 0),(_obj select 1),[],0,"CAN_COLLIDE"];
-        _object setVectorDirAndUp [_obj select 2,_obj select 3];
-        _object setPosATL (_obj select 1);
-        _object setVariable ["persistent",true,true];
-        _object setDamage (_obj select 4);
-        if ((count (_obj select 6)) > 1) then {
-            missionNamespace setVariable[(_obj select 6), _object];
-        };
-        [_object,(_obj select 7)] call FUNC(setPersistent);
-        _object call (_obj select 8);
-    } forEach _objs;
-    {
-        private _grpSet = _x select 1;
-        if (((_grpSet select 15) > 0) && {!(_grpSet select 16)}) then {
-            _x call FUNC(createOccupyGroup);
+    };
+    
+    _groups apply {
+        if (_initial) then {
+            [_x, true] call FUNC(createGroup);
         } else {
-            _x call FUNC(createGroup);
+            GVAR(spawnQueue) pushBack [false, _x];
+
+            if (GVAR(spawnGroupPFH) == -1) then {
+                GVAR(spawnGroupPFH) = [FUNC(spawnGroupPFH), 1, []] call CBA_fnc_addPerFrameHandler;
+            };
         };
-    } forEach _grps;
+    };
+    
     [_zone] call _code;
-}, [_zone,_entities,_code],_delay] call CBA_fnc_waitAndExecute;
+};
+
+if (!_initial && {_delay isEqualTo 0}) then {
+    [_zone, _initial] call _createZone;
+} else {
+    [{
+        params ["_zone", "_initial", "_createZone"];
+        [_zone, _initial] call _createZone;
+    }, [_zone, _initial, _createZone], _delay] call CBA_fnc_waitAndExecute;
+};
+
+
 

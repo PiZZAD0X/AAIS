@@ -35,7 +35,7 @@ class CfgGroupCompositions {
             "rhsusf_usmc_marpat_wd_spotter",               // Spotter
             "rhsusf_navy_marpat_wd_medic"                  // Medic
         };
-        options[] = {{"allowWater", false}, {"forceRoads", false}, {"randomBehaviour", true}, {"waitAtWaypoint", true}, {"allowVehicles", false}, {"patrolBuildings", true}};
+        options[] = {{"allowWater", "false"}, {"forceRoads", "false"}, {"randomBehaviour", "true"}, {"waitAtWaypoint", "true"}, {"allowVehicles", "false"}, {"patrolBuildings", "true"}};
     };
 
     class rhs_usaf_marine_1 : rhs_usaf_marine {
@@ -71,6 +71,6 @@ class CfgGroupCompositions {
             "rhsusf_usmc_marpat_wd_spotter",               // Spotter
             "rhsusf_navy_marpat_wd_medic"                  // Medic
         };
-        options[] = {{"allowWater", false}, {"forceRoads", true}, {"randomBehaviour", true}, {"waitAtWaypoint", true}, {"allowVehicles", false}, {"patrolBuildings", true}};
+        options[] = {{"allowWater", "false"}, {"forceRoads", "false"}, {"randomBehaviour", "true"}, {"waitAtWaypoint", "true"}, {"allowVehicles", "false"}, {"patrolBuildings", "true"}};
     };
 };

@@ -1,6 +1,9 @@
+PREP(assignGroupTask);
 PREP(callTransport);
 PREP(changeAssignedTask);
 PREP(checkDoTask);
+PREP(groupHandler);
+PREP(mapMarkers);
 PREP(onAttack);
 PREP(onAttackEntered);
 PREP(onDefend);
@@ -22,3 +25,5 @@ PREP(onPatrolEntered);
 PREP(onPatrolRandom);
 PREP(onPatrolRandomEntered);
 PREP(onTransportEntered);
+PREP(taskPatrol);
+PREP(taskRelease);

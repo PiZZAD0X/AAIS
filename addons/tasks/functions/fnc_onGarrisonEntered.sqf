@@ -27,8 +27,8 @@ if !(_inBuilding) exitWith {
     [group this, QGVAR(taskPatrol)] call FUNC(changeAssignedTask);
     [QGVAR(patrolBuildings), _group] call CBA_fnc_localEvent;
 
-    private _marker = [_settings, "marker"] call CBA_fnc_hashGet;
-    WARNING_3("No building for group in %1 (Garrisson). Switching to patrol with center %2 and radius %3.",_marker,getPos (leader _group),100);
+    private _area = [_settings, "area"] call CBA_fnc_hashGet;
+    WARNING_3("No building for group in %1 (Garrisson). Switching to patrol with center %2 and radius %3.",_area,getPos (leader _group),100);
 };
 
 _group setVariable [QGVAR(inBuilding), true];

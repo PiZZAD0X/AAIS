@@ -25,17 +25,17 @@ GVAR(ZoneMonitorPFH) = [{
                 ((_aliveplayers findIf {
                     private _player = _x;
                     (_player inArea _area)
-                    && {(side _player) in _sides}
-                    && {(({(vehicle _player) isKindOf _x} count _activatorClasses) > 0)}
+                    && {side _player in _sides}
+                    && {_activatorClasses findIf {(vehicle _player) isKindOf _x} > -1}
                 }) > -1);
             };
             case "Custom Conditional": {
                 (((_aliveplayers findIf {
                     private _player = _x;
                     (_player inArea _area)
-                    && {(side _player) in _sides}
-                    && {(({(vehicle _player) isKindOf _x} count _activatorClasses) > 0)}
-                }) > -1) && {(call _cond)});
+                    && {side _player in _sides}
+                    && {_activatorClasses findIf {(vehicle _player) isKindOf _x} > -1}
+                }) > -1) && {call _cond});
             };
             case "Custom": {
                 (call _cond);
@@ -45,9 +45,9 @@ GVAR(ZoneMonitorPFH) = [{
         LOG_1("_shouldBeOn: %1",_shouldBeOn);
         if (_shouldBeOn && {!_isOn}) then {
             LOG_1("setup _logic: %1",_logic);
-            [_logic,_delay,_code] spawn FUNC(setupZone);
+            [_logic, false, _delay] call FUNC(spawnZone);
             _isOn = true;
-            SETVAR(_logic,zoneActivated,true);
+            SETVAR(_logic,zoneActivated,_isOn);
         };
     } forEach GVAR(Zones);
-}, 5] call CBA_fnc_addPerFrameHandler;
+}, 10] call CBA_fnc_addPerFrameHandler;

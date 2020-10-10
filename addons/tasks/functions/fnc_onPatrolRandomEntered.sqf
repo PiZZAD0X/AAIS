@@ -40,6 +40,8 @@ if ([_settings, "waitAtWaypoint"] call CBA_fnc_hashGet) then {
     _execStatements = QUOTE([ARR_2(QQGVAR(doTask), group this)] call CBA_fnc_localEvent);
 };
 
-private _marker = [_settings, "marker"] call CBA_fnc_hashGet;
-private _targetPos = [_group, _marker, ["MOVE", _execStatements, _condition]] call EFUNC(waypoint,generateWaypoint);
+
+private _area = [_settings, "area"] call CBA_fnc_hashGet;
+private _targetPos = [_group, _area, ["MOVE", _execStatements, _condition]] call EFUNC(waypoint,generateWaypoint);
+
 _group setVariable [QGVAR(distance), (getPosWorld (leader _group)) distance2D _targetPos];

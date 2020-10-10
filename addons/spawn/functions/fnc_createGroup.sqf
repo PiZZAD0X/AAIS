@@ -11,36 +11,79 @@
  * Public: No
  */
 
-params ["_grpString","_grpSet","_grpMem",["_currentVeh",objNull,[objNull]]];
-_grpSet params ["_side","_gpos","_behave","_combat","_speed","_formation","_stance","","","_taskRadius","_wait","_startBld","_task","_taskTimer","","_occupyOption","","_waypoints","","_tasks",""];
-private _ngrp = createGroup _side;
-{
-    if ((_x select 0)) then {
-        private _u = [false,_ngrp,_gpos,_startBld,_foreachIndex,_x,_taskRadius,_currentVeh,_stance] call FUNC(createUnit);
-    } else {
-        private _vpos = (_x select 2);
-        private _v = [_vpos,_x,_side] call FUNC(createVehicle);
-        _currentVeh = _v;
-    };
-} foreach _grpMem;
-[_ngrp,_gpos,_grpSet] call FUNC(setGroupVariables);
-_ngrp call CBA_fnc_clearWaypoints;
-if !(_tasks isEqualTo []) then {
-    [_ngrp,_tasks] call FUNC(taskRegister);
-    _tasks = _tasks call FUNC(taskRemoveZoneActivated);
+params [
+    ["_args", [], [[]]],
+    ["_initial", false, [false]]
+];
+
+_args params [
+    "",
+    "_groupSet",
+    "_groupMem",
+    "_groupVehs"
+];
+
+_groupSet params [
+    /* 0 */ "_side",
+    /* 1 */ "_groupPos",
+    /* 2 */ "_behaviour",
+    /* 3 */ "_combat",
+    /* 4 */ "_speed",
+    /* 5 */ "_formation",
+    /* 6 */ "_groupStance",
+    /* 7 */ "_groupInit",
+    /* 8 */ "_createRadius",
+    /* 9 */ "_taskRadius",
+    /* 10 */ "_wait",
+    /* 11 */ "_startBld",
+    /* 12 */ "_task",
+    /* 13 */ "_taskTimer",
+    /* 14 */ "_multi",
+    /* 15 */ "_occupyOption",
+    /* 16 */ "_waypoints",
+    /* 17 */ "_onWater",
+    /* 18 */ "_fl",
+    /* 19 */ "_surrender",
+    /* 20 */ "_tracker",
+    /* 21 */ "_storedVars",
+    /* 22 */ "_name",
+    /* 23 */ "_groupID",
+    /* 24 */ "_areaAssigned",
+    /* 25 */ "_assetType"
+];
+
+private _group = createGroup _side;
+_group deleteGroupWhenEmpty true;
+
+SETVAR(_group,Spawned,true);
+
+if !(_name isEqualTo "") then {
+    private _uniqueName = [_name] call FUNC(findUniqueName);
+    missionNamespace setVariable [_uniqueName, _group, true];
 };
-if !(_tasks isEqualTo []) then {GVAR(taskedGroups) pushBack [_ngrp];};
-if (count _waypoints > 2) then {
-    [_ngrp,_waypoints] call FUNC(createWaypoints);
+
+if !(_groupID isEqualTo "") then {
+    _group setGroupIdGlobal [_groupID];
+};
+
+if !(_storedVars isEqualTo []) then {
+    _storedVars apply {
+        _x params ["_varName", "_varValue"];
+        _group setvariable [_varName, _varValue];
+    };
+};
+
+[_group,_groupSet] call FUNC(setGroupVariables);
+
+_initial = true;
+if (_initial) then {
+    {
+        [false, _group, _groupPos, _startBld, _foreachIndex, _x, _taskRadius] call FUNC(createVehicle);
+    } forEach _groupVehs;
+    {
+        [false, _group, _groupPos, _startBld, _foreachIndex, _x, _taskRadius] call FUNC(createUnit);
+    } forEach _groupMem;
+    [_group, _groupSet] call FUNC(finishGroupSpawn);
 } else {
-    if (!(_tasks isEqualTo []) && {(_ngrp getVariable [QGVAR(TaskTimer),0]) isEqualTo 0}) then {
-        [_ngrp,_tasks] call FUNC(taskInit);
-    } else {
-        SETVAR(_ngrp,CurrentTaskEndTime,(CBA_MissionTime + _taskTimer));
-        private _passarray = [_task,_ngrp,_gpos,_taskRadius,_wait,_behave,_combat,_speed,_formation,_occupyOption];
-        [{!((waypoints (_this select 1)) isEqualTo [])},{
-            _this call FUNC(taskAssign);
-        },_passarray] call CBA_fnc_waitUntilAndExecute;
-    };
+    [DFUNC(spawnUnitsGroupPFH), 0.1, [_group, _groupSet, _groupMem, _groupVehs]] call CBA_fnc_addPerFrameHandler;
 };
-_ngrp

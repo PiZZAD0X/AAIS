@@ -18,7 +18,10 @@
 params ["_group"];
 
 private _settings = _group getVariable [QEGVAR(core,settings), []];
-private _marker = [_settings, "marker"] call CBA_fnc_hashGet;
 
-_marker = [_marker] call EFUNC(waypoint,selectRandomMarker);
-[_group, _marker] call CBA_fnc_taskDefend;
+private _allowWater = [_settings, "allowWater"] call CBA_fnc_hashGet;
+private _allowLand = [_settings, "allowLand"] call CBA_fnc_hashGet;
+private _forceRoads = [_settings, "forceRoads"] call CBA_fnc_hashGet;
+private _area = [_settings, "area"] call CBA_fnc_hashGet;
+private _target = [_area, [_allowWater, _allowLand, _forceRoads], [0, 50, (leader _group)]] call EFUNC(waypoint,areaRandomPos);
+[_group, _target] call CBA_fnc_taskDefend;

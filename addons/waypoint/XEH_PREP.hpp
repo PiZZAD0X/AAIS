@@ -1,4 +1,5 @@
 PREP(addWaypoint);
+PREP(areaRandomPos);
 PREP(checkMarkerInput);
 PREP(clearWaypoints);
 PREP(elipMarkerRandomPos);

@@ -7,7 +7,7 @@ class GVAR(AreaModule): EGVAR(Core,BaseModule) {
     isDisposable = 0;
     is3DEN = 1;
     canSetArea = 1;
-
+    canSetAreaShape = 1;
     class AttributeValues {
         size3[] = {100, 100, -1};
         IsRectangle = 0;
@@ -25,13 +25,5 @@ class GVAR(AreaModule): EGVAR(Core,BaseModule) {
             validate = "STRING";
             defaultValue = "'Area0'";
         };
-    };
-};
-
-class GVAR(AreaModule_R): GVAR(AreaModule) {
-    displayName = "Commander Area (Rectangle)";
-    class AttributeValues {
-        size3[] = {100, 100, -1};
-        IsRectangle = 1;
     };
 };

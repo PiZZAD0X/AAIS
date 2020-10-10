@@ -25,10 +25,4 @@ if (_settings isEqualTo []) then {
 // PreSpawn code
 [_group] call compile ([_settings, "preSpawn"] call CBA_fnc_hashGet);
 
-// Prepare the marker configuration in order to spawn/select initial position
-private _marker = [_settings, "marker"] call CBA_fnc_hashGet;
-_marker = [_marker] call EFUNC(waypoint,organizeMarkers);
-
-[_settings, "marker", _marker] call CBA_fnc_hashSet;
-
 [_group, _settings] call FUNC(handleStartPosition);

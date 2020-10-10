@@ -8,7 +8,13 @@ private _ctrlCombo = (_control controlsGroupCtrl 100);
 private _activationType = _value;
 LOG_2("_logic: %1 _activationType: %2",_logic,_activationType);
 SETVAR(_logic,ActivationType,_activationType);
-private _activationTypes = [["Initial","Initial"],["Conditional","Conditional"],["Custom Conditional","CustomConditional"],["Custom","Custom"]];
+private _activationTypes = [
+    ["Initial","Initial"],
+    ["Conditional","Conditional"],
+    ["Custom Conditional","CustomConditional"],
+    ["Custom","Custom"],
+    ["Manual","Manual"]
+];
 {
     _x params ["_name","_string"];
     private _index = _ctrlCombo lbadd _name;

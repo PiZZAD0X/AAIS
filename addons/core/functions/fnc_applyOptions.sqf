@@ -40,27 +40,12 @@ if !(_templateName isEqualTo "") then {
 };
 
 // Handle spawn and waypoint markers and group register
-private _markers = [_settings, "marker"] call CBA_fnc_hashGet;
-private _deleteSpawnMarkers = [_settings, "deleteSpawnMarkers"] call CBA_fnc_hashGet;
-private _waypointMarkers = [_settings, "waypointMarkers"] call CBA_fnc_hashGet;
+private _area = [_settings, "area"] call CBA_fnc_hashGet;
 
 private _startPosition = _group getVariable [QGVAR(startPosition), []];
 if (_startPosition isEqualTo []) then {
     _startPosition = getPos (leader _group);
 };
-
-if (_deleteSpawnMarkers) then {
-    if !(_waypointMarkers isEqualTo []) then {
-        _markers = [];
-    } else {
-        ERROR_1("Delete spawn markers option was active for group %1 without specifying additional waypoint markers",_group);
-    };
-};
-
-_markers append _waypointMarkers;
-
-_markers = [_markers] call EFUNC(waypoint,organizeMarkers);
-[_settings, "marker", _markers] call CBA_fnc_hashSet;
 
 if ([_settings, "fullCache"] call CBA_fnc_hashGet) then {
     [_group] call EFUNC(caching,cacheFullGroup);

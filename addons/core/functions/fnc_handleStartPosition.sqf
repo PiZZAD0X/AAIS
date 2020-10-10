@@ -18,24 +18,23 @@
 
 params ["_group", ["_settings", []]];
 
+TRACE_2("",_group,_settings);
+
 if (_settings isEqualTo []) then {
     _settings = _group getVariable [QGVAR(settings), []];
 };
 private _inRandomPosition = [_settings, "randomPosition"] call CBA_fnc_hashGet;
 private _inRandomBuilding = [_settings, "spawnInBuilding"] call CBA_fnc_hashGet;
-private _blackListedMarkers = [_settings, "blacklist"] call CBA_fnc_hashGet;
 
-if (_blackListedMarkers isEqualTo "") then {
-    _blackListedMarkers = [_blackListedMarkers];
-};
+private _area = [_settings, "area"] call CBA_fnc_hashGet;
+_area params ["_pos","_radiusX","_radiusY","_direction","_isRectangle"];
 
-private _spawnMarkers = [_settings, "marker"] call CBA_fnc_hashGet;
-private _marker = ([_spawnMarkers] call EFUNC(waypoint,selectRandomMarker));
-private _position = _group getVariable [QGVAR(startPosition), []];
+private _position = ([_pos,[_radiusX,_radiusY,_direction,_isRectangle]] call BIS_fnc_randomPosTrigger);
+//private _position = _group getVariable [QGVAR(startPosition), []];
 
 // Exit if marker configuration is invalid and position is either empty or at [0, 0, 0]
-if (!([_marker] call EFUNC(waypoint,checkMarkerInput)) && {_position isEqualTo [] || {_position isEqualTo [0, 0, 0]}}) exitWith {
-    ERROR("Invalid marker configuration and/or empty or null position speficied");
+if (_position isEqualTo [] || {_position isEqualTo [0, 0, 0]}) exitWith {
+    ERROR("empty or null position speficied");
 };
 
 // Only infantry units spawn in buildings
@@ -48,22 +47,16 @@ if (!(_type isEqualTo "infantry") && {_inRandomBuilding}) then {
 private _units = units _group;
 if (_units isEqualTo []) then {
     _units =+ (_group getVariable [QEGVAR(spawn,unitsToSpawn), []]);
-} else {
-    private _inMarker = "";
-    private _leaderPos = position (leader _group);
-    {
-        if (_leaderPos inArea (_x select 0)) exitWith {
-            _inMarker = _x select 0;
-        };
-    } forEach _spawnMarkers;
-
-    _group setVariable [QGVAR(registerMarker), _inMarker];
 };
+
+TRACE_2("",_group,_units);
 
 if (_inRandomPosition || {!(_position isEqualTo [])} ) exitWith {
     private _allowWater = [_settings, "allowWater"] call CBA_fnc_hashGet;
     private _allowLand = [_settings, "allowLand"] call CBA_fnc_hashGet;
     private _forceRoads = [_settings, "forceRoads"] call CBA_fnc_hashGet;
+    
+    TRACE_4("",_group,_allowWater,_allowLand,_forceRoads);
 
     private _moveUnits = false;
 
@@ -86,19 +79,7 @@ if (_inRandomPosition || {!(_position isEqualTo [])} ) exitWith {
         };
     };
 
-    if (_position isEqualTo [0, 0, 0]) then {
-        _position = [_marker, [_allowWater, _allowLand, _forceRoads], [0, 50, _unit], _blackListedMarkers] call EFUNC(waypoint,markerRandomPos);
-        _group setVariable [QGVAR(registerMarker), _marker];
-    } else {
-        private _inMarker = "";
-        {
-            if (_position inArea (_x select 0)) exitWith {
-                _inMarker = _x select 0;
-            };
-        } forEach _spawnMarkers;
-
-        _group setVariable [QGVAR(registerMarker), _inMarker];
-    };
+    _position = [_area, [_allowWater, _allowLand, _forceRoads], [0, 50, _unit]] call EFUNC(waypoint,areaRandomPos);
 
     if (_moveUnits) then {
         [_group, _position] call FUNC(moveGroupToPosition);
@@ -108,9 +89,8 @@ if (_inRandomPosition || {!(_position isEqualTo [])} ) exitWith {
 };
 
 if (_inRandomBuilding) exitWith {
-    _group setVariable [QGVAR(registerMarker), _marker];
     private _unitCount = count _units;
-    private _positions = [_unitCount, _marker, [["area", _marker], ["enterable", true], ["blacklist", _blackListedMarkers]], false] call EFUNC(waypoint,markerRandomBuildingPos);
+    private _positions = [_unitCount, _area, [["area", _area], ["enterable", true]], false] call EFUNC(waypoint,markerRandomBuildingPos);
     private _positionsCount = count _positions;
     // Generate positions for all units
     if (_unitCount > _positionsCount) then {
@@ -120,7 +100,7 @@ if (_inRandomBuilding) exitWith {
             if !(_unitType isEqualTo "") then {
                 _unitType = typeOf _unitType;
             };
-            _positions pushBack ([_marker, [false, true, false], [0, 50, _unitType], _blackListedMarkers] call EFUNC(waypoint,markerRandomPos));
+            _positions pushBack ([_area, [false, true, false], [0, 50, _unitType]] call EFUNC(waypoint,areaRandomPos));
         };
 
         private _requiredPositions = _unitCount - _positionsCount - 1;
