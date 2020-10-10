@@ -10,6 +10,7 @@ PREP(isAimed);
 PREP(isFacing);
 PREP(LOSCheck);
 PREP(nearbyFriendlyEntities);
+PREP(setFlashlights);
 PREP(setStance);
 PREP(shareEnemyPositions);
 PREP(throwGrenade);

@@ -1,65 +1,74 @@
-class AAIS_Caching_StateMachine {
-    list = QUOTE(allGroups select {local _x && {_x getVariable [ARR_2(QQEGVAR(core,enabled), false)]}});
+#include "script_component.hpp"
+
+class GVAR(cachingStateMachine) {
+    list = QUOTE(allGroups select {\
+        private _leader = leader _x; \
+        local _leader && \
+        {!(isNull _leader)} && \
+        {(alive _leader)} && \
+        {!isPlayer _leader} && \
+        {!(QGETVAR(_leader,NOAI,false))} && \
+        {QGETVAR(_x,Spawned,false)} && \
+        {side _leader in GVAR(SideBasedExecution)} \
+    });
     skipNull = 1;
+    repeatPerFrame = 1;
+    class Initial {
+        onStateEntered = "";
+        class isInitialized {
+            targetState = QUOTE(Distance_Check_);
 
-    class Init {
-        onStateEntered = QFUNC(onCacheInit);
-        class Cache {
-            targetState = "Cache";
-            events[] = {QGVAR(cache)};
-        };
-
-        class Uncache {
-            targetState = "Uncache";
-            events[] = {QGVAR(uncache)};
+            condition = QUOTE(true);
         };
     };
+    class Distance_Check_ {
+        onStateEntered = QFUNC(onSEDistanceCheck);
+        class No_Enemy_in__Ran {
+            targetState = QUOTE(Cache_Group);
 
-    class Cache {
-        onStateEntered = QFUNC(cacheGroup);
-        onState = QFUNC(handleCache);
-
-        class LeaderChanged {
-            targetState = "LeaderChanged";
-            events[] = {QGVAR(leaderChanged)};
+            condition = QUOTE(!(QGETVAR(_this,enemyInRange,false)) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(transCacheGroup);
         };
+        class Enemy__in_Range {
+            targetState = QUOTE(Wait);
 
-        class MoveUnits {
-            targetState = "MoveUnits";
-            events[] = {QGVAR(moveUnits)};
-        };
-
-        class Uncache {
-            targetState = "Uncache";
-            events[] = {QGVAR(uncache)};
+            condition = QUOTE(true);
         };
     };
+    class Cache_Group {
+        onStateEntered = QFUNC(onSEDistanceCheck);
+        class Enemy_in__Range {
+            targetState = QUOTE(Uncache_Group_Wa);
 
-    class LeaderChanged {
-        onStateEntered = QFUNC(changeLeader);
+            condition = QUOTE(QGETVAR(_this,enemyInRange,false) && {!((behaviour (leader _this)) in ['COMBAT','STEALTH'])});            onTransition = QFUNC(transUnCacheGroup);
+        };
+        class Can_Not_See {
+            targetState = QUOTE(Wait_Cached);
 
-        class Cache {
-            targetState = "Cache";
-            events[] = {QGVAR(cache)};
+            condition = QUOTE(true);
         };
     };
-
-    class MoveUnits {
-        onStateEntered = QFUNC(moveCachedUnits);
-
-        class Cache {
-            targetState = "Cache";
-            events[] = {QGVAR(cache)};
+    class Uncache_Group_Wa {
+        onStateEntered = "";
+        class Wait {
+            targetState = QUOTE(Distance_Check_);
+            conditionFrequency = 2;
+            condition = QUOTE(true);
         };
     };
-
-    class Uncache {
-        onStateEntered = QFUNC(uncacheGroup);
-        onState = QFUNC(handleUncache);
-
-        class Cache {
-            targetState = "Cache";
-            events[] = {QGVAR(cache)};
+    class Wait_Cached {
+        onStateEntered = "";
+        class Cached_Wait_Comp {
+            targetState = QUOTE(Cache_Group);
+            conditionFrequency = 2;
+            condition = QUOTE(true);
+        };
+    };
+    class Wait {
+        onStateEntered = "";
+        class Wait_Completed {
+            targetState = QUOTE(Distance_Check_);
+            conditionFrequency = 2;
+            condition = QUOTE(true);
         };
     };
 };

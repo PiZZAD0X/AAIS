@@ -1,4 +1,4 @@
-#include "..\..\script_macros.hpp"
+#include "script_component.hpp"
 
 
 //unit 1, unit 2

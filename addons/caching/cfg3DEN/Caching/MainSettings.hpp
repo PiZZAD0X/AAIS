@@ -10,6 +10,14 @@ class GVAR(Settings_Category) {
             expression = SCENARIO_EXPRESSION;
             defaultValue = "false";
         };
+        class GVAR(CacheAllPlayers) {
+            property = QGVAR(CacheAllPlayers);
+            displayName = "Include friendly players in cache checks.";
+            tooltip = "";
+            control = "CheckBox";
+            expression = SCENARIO_EXPRESSION;
+            defaultValue = "true";
+        };
         class GVAR(cacheDistance) {
             property = QGVAR(cacheDistance);
             displayName = "Cache Distance";

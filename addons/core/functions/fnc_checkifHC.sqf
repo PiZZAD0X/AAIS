@@ -15,24 +15,23 @@
  * Public: No
  */
 
-private _hc = false;
+LOG("Running CheckIfHC");
+
 GVAR(HC_isHC) = false;
 GVAR(HC_ID) = false;
 
-// Listen server and SP
-if ((isServer && {hasinterface}) || {!hasInterface && {!isDedicated}}) then {
-    _hc = true;
+//listen server and SP
+if (!isMultiplayer || {!hasInterface && {!isDedicated}} || {isMultiplayer && {isServer} && {hasinterface}}) then {
     GVAR(HC_isHC) = true;
     SETMPVAR(HC_ID,clientowner);
 };
 
-// Server or client
-if (isServer) then {
+//server or client
+if (isDedicated) then {
     LOG("clientID: SERVER");
 } else {
     LOG_1("clientID: %1",clientowner);
 };
 
-LOG_3("Running CheckIfHC: %1 for client %2 HC_ID: %3",_hc,clientowner,GVAR(HC_ID));
-
-_hc
+LOG_1("HC_ID: %1",GVAR(HC_ID));
+LOG_2("Running CheckIfHC: %1 for client %2",GVAR(HC_isHC),clientowner);
