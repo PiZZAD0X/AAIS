@@ -66,7 +66,7 @@ switch (true) do {
                 _tries = _tries + 1;
             } else {
                 _x setVariable [QGVAR(checkedPos), _checkedPos];
-                if (EGVAR(core,debugEnabled)) then {
+                if (EGVAR(core,DebugEnabled)) then {
                     private _markerName = format ["marker_%1", CBA_missionTime + random 1];
                     createMarker [_markerName, _checkedPos];
                     _markerName setMarkerShape "icon";

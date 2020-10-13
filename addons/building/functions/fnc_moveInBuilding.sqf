@@ -62,7 +62,7 @@ private _enteredBuildings = [];
             _enteredBuildings pushBackUnique _building;
             _assignedUnits pushBack _x;
 
-            if (EGVAR(core,debugEnabled)) then {
+            if (EGVAR(core,DebugEnabled)) then {
                 private _markerName = format ["marker_%1", CBA_missionTime + random 1];
                 createMarker [_markerName, getPos _building];
                 _markerName setMarkerShape "icon";

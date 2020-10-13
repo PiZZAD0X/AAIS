@@ -45,7 +45,7 @@ for "_i" from 1 to _count do {
 
     [_group, _center getPos [_rad, _theta], _waypointType, _statements joinString ";", _condition] call FUNC(addWaypoint);
 
-    if (EGVAR(core,debugEnabled)) then {
+    if (EGVAR(core,DebugEnabled)) then {
         private _markerName = format ["marker_%1_%2", CBA_missionTime, _i];
         createMarker [_markerName, _center getPos [_rad, _theta]];
         _markerName setMarkerShape "icon";

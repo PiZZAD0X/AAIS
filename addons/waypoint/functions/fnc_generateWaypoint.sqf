@@ -76,7 +76,7 @@ private _waypoint = [_group, _targetPos, _waypointType, _execStatemets, _conditi
 
 _group setCurrentWaypoint _waypoint;
 
-if (EGVAR(core,debugEnabled)) then {
+if (EGVAR(core,DebugEnabled)) then {
     private _markerName = format ["marker_%1", CBA_missionTime];
     createMarker [_markerName, _targetPos];
     _markerName setMarkerShape "icon";

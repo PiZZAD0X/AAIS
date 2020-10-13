@@ -26,7 +26,7 @@ if (_inBuilding) then {
     _group lockWP true;
     private _leader = leader _group;
     private _wp = _group addWaypoint [getPos _leader, 0, currentWaypoint _group];
-    if (EGVAR(core,debugEnabled)) then {
+    if (EGVAR(core,DebugEnabled)) then {
         private _markerName = format ["marker_%1", CBA_missionTime + random 1];
         createMarker [_markerName, getPos _leader];
         _markerName setMarkerShape "icon";

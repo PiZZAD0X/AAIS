@@ -10,8 +10,16 @@ class GVAR(Settings_Category) {
             expression = SCENARIO_EXPRESSION;
             defaultValue = "false";
         };
-        class GVAR(debugEnabled) {
-            property = QGVAR(debugEnabled);
+        class GVAR(DebugEnabled) {
+            property = QGVAR(DebugEnabled);
+            displayName = "Enable Debug";
+            tooltip = "";
+            control = "CheckBox";
+            expression = SCENARIO_EXPRESSION;
+            defaultValue = "false";
+        };
+        class GVAR(VerboseDebug) {
+            property = QGVAR(VerboseDebug);
             displayName = "Enable Debug";
             tooltip = "";
             control = "CheckBox";

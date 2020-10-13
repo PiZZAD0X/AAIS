@@ -37,7 +37,7 @@ params [
 
 if !([_marker] call EFUNC(waypoint,checkMarkerInput)) exitWith {};
 
-if (!GVAR(debugEnabled) && {markerAlpha _marker != 0}) then {
+if (!GVAR(DebugEnabled) && {markerAlpha _marker != 0}) then {
     _marker setMarkerAlpha 0;
 };
 

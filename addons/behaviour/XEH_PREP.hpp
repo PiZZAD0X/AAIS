@@ -1,16 +1,2 @@
-PREP(checkView);
-PREP(closestEnemy);
-PREP(enemyArray);
-PREP(getNearDeadBodies);
-PREP(getNearEnemies);
-PREP(getStance);
-PREP(hasAT);
-PREP(hasRadioGroup);
-PREP(isAimed);
-PREP(isFacing);
-PREP(LOSCheck);
-PREP(nearbyFriendlyEntities);
-PREP(setFlashlights);
-PREP(setStance);
 PREP(shareEnemyPositions);
 PREP(throwGrenade);
