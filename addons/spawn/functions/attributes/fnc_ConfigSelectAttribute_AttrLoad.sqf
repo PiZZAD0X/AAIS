@@ -1,35 +1,44 @@
 #include "script_component.hpp"
 EDEN_CHECK;
 
-params ["_control","_value"];
+params ["_control", "_config"];
 
-private _logic = ((get3DENSelected "logic") select 0);
-private _ctrlCombo = (_control controlsGroupCtrl 100);
-private _config = _value;
+private _logic = (get3DENSelected "logic") select 0;
+private _ctrlCombo = _control controlsGroupCtrl 100;
 SETVAR(_logic,ConfigSelect,_config);
 private _configs = [];
-{
+configproperties [missionConfigFile >> "CfgGroupCompositions", "isclass _x"] apply {
+    private _cfg = _x;
     if !(
-        (([_x,"leaders",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"units",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"crew",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"cargoLeaders",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"cargo",[]] call BIS_fnc_returnConfigEntry)) isEqualTo []
+        [
+            "leaders",
+            "units",
+            "crew",
+            "cargoLeaders",
+            "cargo"
+        ] findIf {
+            ([_cfg, _x,[]] call BIS_fnc_returnConfigEntry) isEqualTo []
+        } == -1
     ) then {
         _configs pushBackUnique (configName _x);
     };
-} foreach configproperties [missionConfigFile >> "CfgGroupCompositions", "isclass _x"];
-{
+};
+configproperties [configfile >> "CfgGroupCompositions", "isclass _x"] apply {
+    private _cfg = _x;
     if !(
-        (([_x,"leaders",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"units",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"crew",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"cargoLeaders",[]] call BIS_fnc_returnConfigEntry) +
-        ([_x,"cargo",[]] call BIS_fnc_returnConfigEntry)) isEqualTo []
+        [
+            "leaders",
+            "units",
+            "crew",
+            "cargoLeaders",
+            "cargo"
+        ] findIf {
+            ([_cfg, _x,[]] call BIS_fnc_returnConfigEntry) isEqualTo []
+        } == -1
     ) then {
         _configs pushBackUnique (configName _x);
     };
-} foreach configproperties [configfile >> "CfgGroupCompositions", "isclass _x"];
+};
 
 private _name = "None Selected";
 private _index = _ctrlCombo lbadd _name;

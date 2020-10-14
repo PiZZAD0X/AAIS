@@ -22,7 +22,7 @@ class GVAR(Settings_Category) {
             property = QGVAR(cacheDistance);
             displayName = "Cache Distance";
             tooltip = "Distance from players at which AI will be cached";
-            control = QEGVAR(Core,500To10000Step100_Slider);
+            control = QEGVAR(Core,500To8000Step100_Slider);
             expression = SCENARIO_EXPRESSION;
             validate = "number";
             defaultValue = "2500";

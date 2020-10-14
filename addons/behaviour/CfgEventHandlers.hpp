@@ -16,3 +16,11 @@ class Extended_PostInit_EventHandlers {
         init = QUOTE(call COMPILE_FILE(XEH_postInit));
     };
 };
+
+class Extended_FiredMan_EventHandlers {
+	class CAManBase {
+        class ADDON {
+            firedMan = QUOTE(call FUNC(onFiredMan));
+        };
+    };
+};

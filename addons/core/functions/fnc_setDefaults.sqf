@@ -9,7 +9,7 @@
 
 #include "script_component.hpp"
 
-private _sections = QUOTE(((str(configname _x)) find QN(PREFIX)) isEqualTo 0) configClasses (configFile >> "Cfg3DEN" >> "Mission");
+private _sections = QUOTE(((str(configname _x)) select [0,4]) isEqualTo QN(PREFIX)) configClasses (configFile >> "Cfg3DEN" >> "Mission");
 _sections apply {
     private _section = configName _x;
     private _children = [configFile >> "Cfg3DEN" >> "Mission" >> _section >> "AttributeCategories", 2, false] call BIS_fnc_returnChildren;

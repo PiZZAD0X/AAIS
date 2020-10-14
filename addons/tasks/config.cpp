@@ -16,3 +16,4 @@ class CfgPatches {
 
 #include "CfgEventHandlers.hpp"
 #include "StateMachine.hpp"
+#include "Cfg3DEN.hpp"

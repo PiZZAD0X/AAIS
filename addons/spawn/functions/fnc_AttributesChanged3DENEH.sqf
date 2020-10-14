@@ -9,7 +9,7 @@ private _valueArray = [
     ["Init", QGVAR(Init), ""]
 ];
 
-{
+_valueArray apply {
     _x params ["_BIvarName", "_varName", ""]; // "_defaultValue is the third parameter"
     private _BIvalueReturn = _unit get3DENAttribute _BIvarName;
     if !(_BIvalueReturn isEqualTo []) then {
@@ -18,7 +18,7 @@ private _valueArray = [
             _unit set3DENAttribute [_varName,(_BIvalueReturn select 0)];
         };
     };
-} foreach _valueArray;
+};
 
 private _valueArrayGroup = [
     ["Name", QGVAR(Name), ""],
@@ -32,7 +32,7 @@ private _valueArrayGroup = [
     ["DynamicSimulation", QGVAR(DynamicSimulation), true]
 ];
 
-{
+_valueArrayGroup apply {
     _x params ["_BIvarName", "_varName", ""]; // "_defaultValue is the third parameter"
     private _group = group _unit;
     private _BIvalueReturn = _group get3DENAttribute _BIvarName;
@@ -42,4 +42,4 @@ private _valueArrayGroup = [
             _group set3DENAttribute [_varName, _valueReturn];
         };
     };
-} foreach _valueArrayGroup;
+};

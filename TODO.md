@@ -12,6 +12,4 @@
 - zone module <-> template/config module sync functionality
 
 #### Config Spawn
-- config module function
-- config spawner switch -> spawns group if not synced to module, spawns group when zone activated when synced to zone,
-creates/adds to template when synced to template module.
+- move config processing all to preInit & move all config spawning techniques and settings to editor format

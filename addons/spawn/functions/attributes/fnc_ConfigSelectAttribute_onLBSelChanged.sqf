@@ -4,32 +4,27 @@ EDEN_CHECK;
 params ["_ctrlCombo","_cursel"];
 
 private _configType = _ctrlCombo lbData _cursel;
-private _logic = ((get3DENSelected "logic") select 0);
+private _logic = (get3DENSelected "logic") select 0;
 SETVAR(_logic,ConfigSelect,_configType);
 private _configsMission = configproperties [missionConfigFile >> "CfgGroupCompositions", "isclass _x"];
 private _configsDefaults = configproperties [configfile >> "CfgGroupCompositions", "isclass _x"];
 private _config = "";
-{
+_configsMission apply {
     if (_configType isEqualTo (configName _x)) exitwith {
         _config = _x;
     };
-} foreach _configsMission;
+};
 if (_config isEqualTo "") then {
-    {
+    _configsDefaults apply {
         if (_configType isEqualTo (configName _x)) exitwith {
             _config = _x;
         };
-    } foreach _configsDefaults;
+    };
 };
 
-[_this,_config] spawn {
+[_ctrlCombo, _config, _configType, _logic] spawn {
     disableserialization;
-    params ["_thisArgs","_config"];
-    _thisArgs params ["_ctrlCombo","_cursel"];
-    private _configType = _ctrlCombo lbData _cursel;
-    LOG_2("_config: %1 _configType: %2",_config,_configType);
-    private _logic = ((get3denselected "logic") select 0);
-    private _logicType = typeOf _logic;
+    params ["_ctrlCombo", "_config", "_configType", "_logic"];
     private _activeUnitArray = [];
     private _activeUnitControls = [];
     private _activeVehArray = [];
@@ -68,12 +63,12 @@ if (_config isEqualTo "") then {
         };
     };
     private _ctrlGroup = ctrlParentControlsGroup ctrlParentControlsGroup _ctrlCombo;
-    private _allControls = (allcontrols (ctrlparent _ctrlCombo)) select {(ctrlParentControlsGroup ctrlParentControlsGroup _x isEqualto _ctrlGroup) 
-            && {((ctrlClassName _x) find "Picture") > -1}
+    private _allControls = allcontrols ctrlparent _ctrlCombo;
+    private _allPictures = _allControls select {(ctrlParentControlsGroup ctrlParentControlsGroup _x isEqualto _ctrlGroup) 
+            && {(ctrlClassName _x find "Picture") > -1}
     };
-    {
+    _allPictures apply {
         private _ctrl = _x;
-        private _ctrlName = ctrlClassName _x;
         private _ctrlIDC = ctrlIDC _x;
         private _vehControl = _ctrlIDC in [5320,5321,5322,5323];
         private _state = false;
@@ -144,5 +139,5 @@ if (_config isEqualTo "") then {
         _ctrl ctrlcommit 0;
         ctrlsetfocus _ctrl;
         ctrlsetfocus _ctrlCombo;
-    } foreach _allControls;
+    };
 };

@@ -25,6 +25,7 @@ PREP(getSyncedObjects);
 PREP(getSyncedModules);
 PREP(populateMarker);
 PREP(setAssignedVehicle);
+PREP(setGroupVariables);
 PREP(setMultiOccupy);
 PREP(spawnGroup);
 PREP(spawnGroupFromConfig);

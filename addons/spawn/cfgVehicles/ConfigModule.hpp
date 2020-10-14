@@ -84,8 +84,8 @@ class GVAR(ConfigModule): EGVAR(core,BaseModule) {
             expression = MODULE_EXPRESSION;
             defaultValue = "'Patrol'";
         };
-        class GVAR(GrouppatrolRadius) {
-            property = QGVAR(GrouppatrolRadius);
+        class GVAR(groupTaskRadius) {
+            property = QGVAR(groupTaskRadius);
             displayName = "Task Radius";
             tooltip = "Radius that Group will conduct the assigned task in. Default: 30m";
             control = QEGVAR(Core,0to250Step10_Slider);
