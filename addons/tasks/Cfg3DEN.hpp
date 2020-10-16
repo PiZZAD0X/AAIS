@@ -8,13 +8,7 @@ class Cfg3DEN {
             #include "cfgAttributeCategories\Group.hpp"
         };
     };
-
-    class Object {
-        class AttributeCategories {
-            #include "cfgAttributeCategories\Object.hpp"
-        };
-    };
-
+    
     class Mission {
         #include "cfg3DEN\cfg3denMenuCategories.hpp"
     };

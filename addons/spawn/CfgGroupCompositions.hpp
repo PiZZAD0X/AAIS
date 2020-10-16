@@ -1,21 +1,11 @@
 class CfgGroupCompositions {
 
     class Common {
-        behaviour[] = {"careless", "safe", "aware", "combat", "stealth"};
-        combatMode[] = {"blue", "green", "white", "yellow", "red"};
-        formation[] = {"column", "stag column", "wedge", "ech left", "ech right", "vee", "line", "file", "diamond"};
-        speed[] = {"limited", "normal", "full"};
-        skill[] = {{0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}};
-        skillLeader[] = {{0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}, {0.2, 0.8}};
-        execInit = "";
-        execWaypoint = "";
-        task[] = {"patrolRandom"};
         random = 1; // Group composition will be made random
     };
 
     class rhs_usaf_marine : Common {
         type = "infantry";
-        side = "west";
         leaders[] = {"rhsusf_usmc_marpat_wd_squadleader", "rhsusf_usmc_marpat_wd_teamleader"};
         units[] = {
             "rhsusf_usmc_marpat_wd_rifleman",              // Rifleman
@@ -35,7 +25,6 @@ class CfgGroupCompositions {
             "rhsusf_usmc_marpat_wd_spotter",               // Spotter
             "rhsusf_navy_marpat_wd_medic"                  // Medic
         };
-        options[] = {{"allowWater", "false"}, {"forceRoads", "false"}, {"randomBehaviour", "true"}, {"waitAtWaypoint", "true"}, {"allowVehicles", "false"}, {"patrolBuildings", "true"}};
     };
 
     class rhs_usaf_marine_1 : rhs_usaf_marine {
@@ -50,7 +39,6 @@ class CfgGroupCompositions {
             "rhsusf_rg33_usmc_wd",
             "rhsusf_rg33_m2_usmc_wd"
         };
-        side = "west";
         crew[] = {"rhsusf_usmc_marpat_wd_combatcrewman"};
         cargoLeaders[] = {"rhsusf_usmc_marpat_wd_squadleader", "rhsusf_usmc_marpat_wd_teamleader"};
         cargo[] = {
@@ -71,6 +59,5 @@ class CfgGroupCompositions {
             "rhsusf_usmc_marpat_wd_spotter",               // Spotter
             "rhsusf_navy_marpat_wd_medic"                  // Medic
         };
-        options[] = {{"allowWater", "false"}, {"forceRoads", "false"}, {"randomBehaviour", "true"}, {"waitAtWaypoint", "true"}, {"allowVehicles", "false"}, {"patrolBuildings", "true"}};
     };
 };

@@ -48,16 +48,14 @@ private _vehCrew = _fullCrew apply {
 };
 
 [typeOf _veh,
-_pos,
 _vehCrew,
+_pos,
 _vectorDir,
 _vectorUp,
 _damage,
 _fuel,
 magazinesAllTurrets _veh,
 locked _veh,
-surfaceIsWater (getposATL _veh),
-(GETVAR(_veh,Name,"")),
 _vehInit,
 (GETVAR(_veh,Flying,false)),
 (GETVAR(_veh,FlyInHeight,250)),

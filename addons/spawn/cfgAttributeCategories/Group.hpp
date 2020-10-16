@@ -89,46 +89,6 @@ class GVAR(GroupBehaviour) {
             expression = ENTITY_EXPRESSION;
             defaultValue = "'auto'";
         };
-        class GVAR(forceLights) {
-            property = QGVAR(forceLights);
-            displayName = "Force Flashlights";
-            tooltip = "Force group to use flashlights if dark. Removes NVG Goggles. Default: Off";
-            control = QGVAR(forcelightsControlAttribute);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
-        };
-        class GVAR(task) {
-            property = QGVAR(task);
-            displayName = "Task";
-            tooltip = "Task the unit or group will conduct on activation. Default: Patrol";
-            control = QGVAR(TaskSelectAttribute);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "'Patrol'";
-        };
-        class GVAR(patrolRadius) {
-            property = QGVAR(patrolRadius);
-            displayName = "Task Radius";
-            tooltip = "Radius that Group will conduct the assigned task in. Default: 100m";
-            control = QEGVAR(Core,50to500Step10_Slider);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "100";
-        };
-        class GVAR(waypointWait) {
-            property = QGVAR(waypointWait);
-            displayName = "Waypoint Wait Time";
-            tooltip = "Time unit or group will wait at each auto generated waypoint. Default: 3 secs.";
-            control = QEGVAR(Core,0to30Step1_Slider);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "3";
-        };
-        class GVAR(TaskTimer) {
-            property = QGVAR(TaskTimer);
-            displayName = "Time";
-            tooltip = "How long the group will perform this task before continuing to another. Default: 0 (forever).";
-            control = QEGVAR(Core,0to600Step1_Slider);
-            expression = ENTITY_EXPRESSION;
-            defaultValue = "0";
-        };
         class GVAR(createRadius) {
             property = QGVAR(createRadius);
             displayName = "Creation Radius";
@@ -145,8 +105,8 @@ class GVAR(GroupBehaviour) {
             expression = ENTITY_EXPRESSION;
             defaultValue = "1";
         };
-        class GVAR(occupyOption) {
-            property = QGVAR(occupyOption);
+        class GVAR(occupy) {
+            property = QGVAR(occupy);
             displayName = "Occupy Building Options";
             tooltip = "Should the group occupy a building or group of buildings. Default: Off";
             control = QGVAR(OccupySelectAttribute);

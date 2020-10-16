@@ -10,13 +10,14 @@ private _valueArray = [
 ];
 
 _valueArray apply {
-    _x params ["_BIvarName", "_varName", ""]; // "_defaultValue is the third parameter"
+    _x params ["_BIvarName", "_varName", "_default"]; // "_defaultValue is the third parameter"
     private _BIvalueReturn = _unit get3DENAttribute _BIvarName;
-    if !(_BIvalueReturn isEqualTo []) then {
-        private _valueReturn = _unit get3DENAttribute _varName;
-        if ((_valueReturn isEqualto []) || {!((_valueReturn select 0) isEqualTo (_BIvalueReturn select 0))}) then {
-            _unit set3DENAttribute [_varName,(_BIvalueReturn select 0)];
-        };
+    if (_BIvalueReturn isEqualTo []) then {
+        _BIvalueReturn = [_default];
+    };
+    private _valueReturn = _unit get3DENAttribute _varName;
+    if (_valueReturn isEqualto [] || {!((_valueReturn select 0) isEqualTo (_BIvalueReturn select 0))}) then {
+        _unit set3DENAttribute [_varName, _BIvalueReturn select 0];
     };
 };
 
@@ -33,13 +34,14 @@ private _valueArrayGroup = [
 ];
 
 _valueArrayGroup apply {
-    _x params ["_BIvarName", "_varName", ""]; // "_defaultValue is the third parameter"
+    _x params ["_BIvarName", "_varName", "_default"];
     private _group = group _unit;
     private _BIvalueReturn = _group get3DENAttribute _BIvarName;
-    if !(_BIvalueReturn isEqualTo []) then {
-        private _valueReturn = _group get3DENAttribute _varName;
-        if ((_valueReturn isEqualto []) || {!((_valueReturn select 0) isEqualTo (_BIvalueReturn select 0))}) then {
-            _group set3DENAttribute [_varName, _valueReturn];
-        };
+    if (_BIvalueReturn isEqualTo []) then { 
+        _BIvalueReturn = [_default];
+    };
+    private _valueReturn = _group get3DENAttribute _varName;
+    if (_valueReturn isEqualto [] || {!((_valueReturn select 0) isEqualTo (_BIvalueReturn select 0))}) then {
+        _group set3DENAttribute [_varName, _BIvalueReturn select 0];
     };
 };

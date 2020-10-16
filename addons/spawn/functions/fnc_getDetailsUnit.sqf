@@ -47,25 +47,17 @@ private _identity = [
      pitch _unit
 ];
 private _name = GETVAR(_unit,varName,"");
-private _olsenGearType = GETVAR(_unit,gearType,"");
-private _vanillaLoadout = if (_olsenGearType isEqualTo "") then {
-     []
-} else {
-     getUnitLoadout _unit
-};
+private _gear = getUnitLoadout _unit;
 
 [typeOf _unit,
 _pos,
 _vectorDir,
 _vectorUp,
 _damage,
-_vanillaLoadout,
+_gear,
 _unit getVariable ["ACE_captives_isHandcuffed",false],
-surfaceIsWater (getposATL _unit),
 _stance,
 _unitInit,
-GETVAR(_unit,Name,""),
 _identity,
 GETVAR(_unit,storedVars,[]),
-_name,
-_olsenGearType]
+_name]

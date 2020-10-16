@@ -1,6 +1,6 @@
 class GVAR(TemplateModule): EGVAR(core,BaseModule) {
     scope = 2;
-    displayName = "AI Template";
+    displayName = "Template";
     function = QFUNC(templateModule);
     functionPriority = 0;
     isGlobal = 1;

@@ -14,6 +14,8 @@ class CfgPatches {
     };
 };
 
+#include "\m\aais\addons\main\RscTitles.hpp"
 #include "CfgEventHandlers.hpp"
 #include "StateMachine.hpp"
 #include "Cfg3DEN.hpp"
+#include "CfgVehicles.hpp"

@@ -1,6 +1,6 @@
 class GVAR(ZoneModule): EGVAR(core,BaseModule) {
     scope = 2;
-    displayName = "AI Zone";
+    displayName = "Zone";
     function = QFUNC(zoneModule);
     functionPriority = 0;
     isGlobal = 1;

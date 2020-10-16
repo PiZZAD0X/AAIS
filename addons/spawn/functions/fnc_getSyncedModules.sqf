@@ -14,19 +14,14 @@
  * Public: No
  */
 
-params ["_logic",["_AllowedModules",[],[[]]]];
-private _AllowedSynced = [];
-{
-    private _syncModule = _x;
-    if (_syncModule isKindOf "Logic") then {
-        private _Allowed = if !(_AllowedModules isEqualTo []) then {
-            (typeof _syncModule) in _AllowedModules
-        } else {
-            true
-        };
-        if (_Allowed) then {
-            _AllowedSynced pushBack _syncModule;
-        };
-    };
-} foreach synchronizedObjects _logic;
-_AllowedSynced
+params [
+    "_logic",
+    ["_filter",[],[[]]]
+];
+
+private _filteredSynced = synchronizedObjects _logic select {
+    _x isKindOf "Logic" &&
+    {_filter isEqualTo [] || {typeof _x in _filter}}
+};
+
+_filteredSynced

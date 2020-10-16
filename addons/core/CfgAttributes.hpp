@@ -6,4 +6,5 @@
 #include "cfgAttributes\TeamsSelectBoxAttribute.hpp"
 #include "cfgAttributes\HiddenAttribute.hpp"
 #include "cfgAttributes\CheckboxStateReversed.hpp"
+#include "cfgAttributes\CheckboxRandom.hpp"
 #include "cfgAttributes\SideSelectAttribute.hpp"

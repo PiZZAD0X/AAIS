@@ -1,0 +1,5 @@
+#include "\m\aais\addons\core\cfgAttributes\External.hpp"
+#include "cfgAttributes\ForcelightsControlAttribute.hpp"
+#include "cfgAttributes\GroupTaskSelectAttribute.hpp"
+#include "cfgAttributes\OccupySelectAttribute.hpp"
+#include "cfgAttributes\TaskSelectAttribute.hpp"

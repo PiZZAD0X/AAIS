@@ -1,7 +1,4 @@
 #include "\m\aais\addons\core\cfgAttributes\External.hpp"
-#include "cfgAttributes\ForcelightsControlAttribute.hpp"
-#include "cfgAttributes\OccupySelectAttribute.hpp"
-#include "cfgAttributes\TaskSelectAttribute.hpp"
 #include "cfgAttributes\ZoneActivationAttribute.hpp"
 #include "cfgAttributes\ZoneActivatorAttribute.hpp"
 #include "cfgAttributes\ConfigSelectAttribute.hpp"

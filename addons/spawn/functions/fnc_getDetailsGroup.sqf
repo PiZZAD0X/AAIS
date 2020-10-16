@@ -20,23 +20,24 @@ params [
 ];
  
 private _group = group _unit;
-private _groupInit = _group getVariable [QGVAR(Init),""];
-private _occupy = GETVAR(_group,occupyOption,0);
-if (_occupy isEqualTo 1) then {_occupy = floor(random [2,5,7])};
-if ((_groupInit isEqualType "") && {!(_groupInit isEqualTo "")}) then {
-    _groupInit = compile _groupInit;
+private _init = GETVAR(_group,Init,"");
+if ((_init isEqualType "") && {!(_init isEqualTo "")}) then {
+     _init = compile _init;
 } else {
-    _groupInit = false;
+     _init = false;
 };
+private _occupy = GETVAR(_group,occupy,"Off");
+if !(_occupy isEqualTo "Off") then {_occupy = floor(random [2,5,7])};
 if (_pos isEqualTo []) then {
     _pos = (getposATL _unit) apply {parseNumber (_x toFixed 2)};
 };
-private _name = GETVAR(_group,varName,"");
-private _groupID = GETVAR(_group,groupID,"");
-private _areaAssigned = GETVAR(_group,areaAssigned,"NONE");
-private _assetType = GETVAR(_group,assetType,"INFANTRY");
-private _taskPos = GETVAR(_group,taskPos,[ARR_3(0,0,0)]);
-TRACE_2("",_group,_taskPos);
+private _areaAssigned = EGETVAR(_group,Commander,areaAssigned,"NONE");
+private _assetType = EGETVAR(_group,Commander,assetType,"INFANTRY");
+private _commanderIgnore = EGETVAR(_group,Commander,CommanderIgnore,false);
+private _QRF = EGETVAR(_group,Commander,QRF,false);
+private _waypoints = [waypoints _unit] call FUNC(getWaypointDetails);
+private _taskArray = [] call EFUNC(tasks,getTaskInfoGroup);
+private _commanderArray = [];
 
 [side _unit,
 _pos,
@@ -45,22 +46,11 @@ combatMode _group,
 speedMode _group,
 formation _group,
 GETVAR(_group,groupStance,"AUTO"),
-_groupInit,
-GETVAR(_group,createRadius,0),
-GETVAR(_group,taskRadius,30),
-GETVAR(_group,taskWait,3),
-GETVAR(_group,startBuilding,false),
-GETVAR(_group,task,"PATROL"),
-GETVAR(_group,TaskTimer,0),
+_init,
 GETVAR(_group,multiplier,0),
 _occupy,
-[waypoints _unit] call FUNC(getWaypointDetails),
-surfaceIsWater getposATL _unit,
-GETVAR(_group,forceLights,false),
-GETVAR(_group,surrender,false),
-GETVAR(_group,Tracker,false),
 GETVAR(_group,storedVars,[]),
-_name,
-_groupID,
-_areaAssigned,
-_assetType]
+GETVAR(_group,varName,""),
+GETVAR(_group,groupID,""),
+_taskArray,
+_commanderArray]

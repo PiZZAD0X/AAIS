@@ -61,31 +61,71 @@ switch (_mode) do {
         if !(_configModules isEqualTo []) then {
             LOG_2("_logic: %1 _configModules: %2",_logic,_configModules);
             
-            {
+            _configModules apply {
                 private _logicConfig = _x;
                 private _position = getPosATL _logicConfig;
-                private _size = _logicConfig getVariable ["objectArea", [100, 100]];
-                _size params ["_radiusX","_radiusY"];
+                private _size = _logicConfig getVariable ["objectArea", [100, 100, 0, false]];
+                _size params ["_radiusX", "_radiusY"];
                 private _direction = getDir _logicConfig;
-                private _areaConfig = [_position,_radiusX,_radiusY,_direction];
+                private _areaConfig = [_position, _radiusX, _radiusY, _direction, false];
                 private _configSelect = GETVAR(_logicConfig,configSelect,"NONE");
-                private _groupSide = GETVAR(_logicConfig,groupSide,"WEST");
-                private _groupName = GETVAR(_logicConfig,groupName,"");
-                private _groupInit = GETVAR(_logicConfig,groupInit,"");
-                private _groupProbabilityPresence = GETVAR(_logicConfig,groupProbabilityPresence,100);
-                private _groupStance = GETVAR(_logicConfig,groupStance,"auto");
-                private _groupForceLights = GETVAR(_logicConfig,groupForceLights,0);
-                private _groupTask = GETVAR(_logicConfig,groupTask,"Patrol");
-                private _groupPatrolRadius = GETVAR(_logicConfig,groupPatrolRadius,30);
-                private _groupWaypointWait = GETVAR(_logicConfig,groupWaypointWait,3);
-                private _groupTaskTimer = GETVAR(_logicConfig,groupTaskTimer,0);
-                private _groupCreateRadius = GETVAR(_logicConfig,groupCreateRadius,0);
-                private _groupMultiplier = GETVAR(_logicConfig,groupMultiplier,1);
-                private _groupOccupyOption = GETVAR(_logicConfig,groupOccupyOption,"Off");
-                
-                _configs pushback [_logicConfig,_area,_configSelect,_groupMultiplier];
-            } foreach _configModules;
-            
+                private _side = GETVAR(_logicConfig,Side,"WEST");
+                private _name = GETVAR(_logicConfig,Name,"");
+                private _init = GETVAR(_logicConfig,Init,"");
+                private _probability = GETVAR(_logicConfig,Probability,100);
+                private _stance = GETVAR(_logicConfig,Stance,"auto");
+                private _forceLights = GETVAR(_logicConfig,ForceLights,0);
+                private _task = GETVAR(_logicConfig,Task,"Patrol");
+                private _taskRadius = GETVAR(_logicConfig,TaskRadius,30);
+                private _taskWait = GETVAR(_logicConfig,taskWait,3);
+                private _taskTimer = GETVAR(_logicConfig,TaskTimer,0);
+                private _createRadius = GETVAR(_logicConfig,CreateRadius,0);
+                private _multiplier = GETVAR(_logicConfig,Multiplier,0);
+                private _occupy = GETVAR(_logicConfig,Occupy,"Off");
+                private _combatMode = GETVAR(_logicConfig,CombatMode,"YELLOW");
+                private _behaviour = GETVAR(_logicConfig,Behaviour,"AWARE");
+                private _formation = GETVAR(_logicConfig,Formation,"wedge");
+                private _speedMode = GETVAR(_logicConfig,SpeedMode,"normal");
+                private _areaAssigned = EGETVAR(_logicConfig,Commander,areaAssigned,"NONE");
+                private _assetType = EGETVAR(_logicConfig,Commander,assetType,"INFANTRY");
+                private _commanderIgnore = EGETVAR(_logicConfig,Commander,CommanderIgnore,false);
+                private _QRF = EGETVAR(_logicConfig,Commander,QRF,false);
+                if (_init isEqualType "" && {!(_init isEqualTo "")}) then {
+                     _init = compile _init;
+                } else {
+                     _init = false;
+                };
+                private _groupSet = [
+                    _side,
+                    _position,
+                    _behaviour,
+                    _combatMode,
+                    _speedMode,
+                    _formation,
+                    _stance,
+                    _init,
+                    _createRadius,
+                    _taskRadius,
+                    _taskWait,
+                    _task,
+                    _taskTimer,
+                    _multiplier,
+                    _occupy,
+                    [],
+                    _forceLights,
+                    false,
+                    [],
+                    _name,
+                    "",
+                    _areaAssigned,
+                    _assetType,
+                    _commanderIgnore,
+                    _QRF
+                ];
+                private _groupMemArray = [_configSelect] call FUNC(getDetailsConfigGroup);
+                _groupMemArray params ["_groupMem", "_groupVehs"];
+                _configs pushback ["", _groupSet, _groupMem, _groupVehs];
+            };    
         };
         SETPVAR(_logic,configs,_configs);
         
@@ -95,6 +135,10 @@ switch (_mode) do {
             LOG_2("_logic: %1 _templateModules: %2",_logic,_templateModules);
         };
         SETPVAR(_logic,templates,_templates);
+        
+        private _tasks = [];
+        private _tasksModules = [_logic,[QEGVAR(Tasks,TaskModule)]] call FUNC(getSyncedModules);
+        SETPVAR(_logic,tasks,_tasks);
 
         GVAR(Zones) pushBack [
             _logic,
@@ -118,4 +162,3 @@ switch (_mode) do {
     case "attributesChanged3DEN": {};
     default {};
 };
-true

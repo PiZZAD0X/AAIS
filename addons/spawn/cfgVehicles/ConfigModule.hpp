@@ -1,6 +1,6 @@
 class GVAR(ConfigModule): EGVAR(core,BaseModule) {
     scope = 2;
-    displayName = "AI Config Spawn";
+    displayName = "Config Spawn";
     function = QFUNC(configModule);
     functionPriority = 0;
     isGlobal = 1;
@@ -26,16 +26,42 @@ class GVAR(ConfigModule): EGVAR(core,BaseModule) {
             expression = MODULE_EXPRESSION;
             defaultValue = "'NONE'";
         };
-        class GVAR(groupSide) {
-            property = QGVAR(groupSide);
-            displayName = "Group Side";
-            tooltip = "Set the side of the group on spawn";
-            control = QEGVAR(Core,SideSelectAttribute);
+        class GVAR(Random) {
+            property = QGVAR(Random);
+            displayName = "Random";
+            tooltip = "Set whether unit generation for the group is random.";
+            control = EGVAR(Core,CheckboxRandom);
             expression = MODULE_EXPRESSION;
-            defaultValue = "'WEST'";
+            defaultValue = "(false)";
         };
-        class GVAR(groupName) {
-            property = QGVAR(groupName);
+        class GVAR(MinSize) {
+            property = QGVAR(MinSize);
+            displayName = "Min Size";
+            tooltip = "Set the minimum size of the unit if it is random.";
+            control = "EditCode";
+            expression = MODULE_EXPRESSION;
+            defaultValue = "'3'";
+            randomMode = 1;
+        };
+        class GVAR(MaxSize) {
+            property = QGVAR(MaxSize);
+            displayName = "Max Size";
+            tooltip = "Set the maximum size of the unit if it is random.";
+            control = "EditCode";
+            expression = MODULE_EXPRESSION;
+            defaultValue = "'8'";
+            randomMode = 1;
+        };
+        class GVAR(Side) {
+            property = QGVAR(Side);
+            displayName = "Group Side";
+            tooltip = "Set the side the group spawns on.";
+            control = EGVAR(Core,SideSelectAttribute);
+            expression = MODULE_EXPRESSION;
+            defaultValue = "'EAST'";
+        };
+        class GVAR(Name) {
+            property = QGVAR(Name);
             displayName = "Group Name";
             tooltip = "Set the name of the group on spawn";
             control = "EditCode";
@@ -44,93 +70,85 @@ class GVAR(ConfigModule): EGVAR(core,BaseModule) {
             validate="variable";
             defaultValue = "''";
         };
-        class GVAR(groupInit) {
-            property = QGVAR(groupInit);
+        class GVAR(Init) {
+            property = QGVAR(Init);
             displayName = "Group Init";
             tooltip = "Set the init of the group on spawn";
             control = "EditCodeMulti5";
             expression = MODULE_EXPRESSION;
             defaultValue = "''";
         };
-        class GVAR(groupProbabilityPresence) {
-            property = QGVAR(groupProbabilityPresence);
+        class GVAR(Probability) {
+            property = QGVAR(Probability);
             displayName = "Probability of Presence";
             tooltip = "Probability that the group will be spawned.";
             control = QEGVAR(Core,0to100Step1_Slider);
             expression = MODULE_EXPRESSION;
             defaultValue = "100";
         };
-        class GVAR(groupStance) {
-            property = QGVAR(groupStance);
+        class GVAR(Stance) {
+            property = QGVAR(Stance);
             displayName = "Group Stance";
             tooltip = "Force the stance of the group. Default: AUTO";
             control = "UnitPos";
             expression = MODULE_EXPRESSION;
             defaultValue = "'auto'";
         };
-        class GVAR(GroupforceLights) {
-            property = QGVAR(GroupforceLights);
-            displayName = "Force Flashlights";
-            tooltip = "Force group to use flashlights if dark. Removes NVG Goggles. Default: Off";
-            control = QGVAR(forcelightsControlAttribute);
-            expression = MODULE_EXPRESSION;
-            defaultValue = "0";
-        };
-        class GVAR(Grouptask) {
-            property = QGVAR(Grouptask);
-            displayName = "Task";
-            tooltip = "Task the unit or group will conduct on activation. Default: Patrol";
-            control = QGVAR(TaskSelectAttribute);
-            expression = MODULE_EXPRESSION;
-            defaultValue = "'Patrol'";
-        };
-        class GVAR(groupTaskRadius) {
-            property = QGVAR(groupTaskRadius);
-            displayName = "Task Radius";
-            tooltip = "Radius that Group will conduct the assigned task in. Default: 30m";
-            control = QEGVAR(Core,0to250Step10_Slider);
-            expression = MODULE_EXPRESSION;
-            defaultValue = "30";
-        };
-        class GVAR(GroupwaypointWait) {
-            property = QGVAR(GroupwaypointWait);
-            displayName = "Waypoint Wait Time";
-            tooltip = "Time unit or group will wait at each auto generated waypoint. Default: 3 secs.";
-            control = QEGVAR(Core,0to30Step1_Slider);
-            expression = MODULE_EXPRESSION;
-            defaultValue = "3";
-        };
-        class GVAR(GroupTaskTimer) {
-            property = QGVAR(GroupTaskTimer);
-            displayName = "Time";
-            tooltip = "How long the group will perform this task before continuing to another. Default: 0 (forever).";
-            control = QEGVAR(Core,0to600Step1_Slider);
-            expression = MODULE_EXPRESSION;
-            defaultValue = "0";
-        };
-        class GVAR(GroupCreateRadius) {
-            property = QGVAR(GroupCreateRadius);
+        class GVAR(CreateRadius) {
+            property = QGVAR(CreateRadius);
             displayName = "Creation Radius";
             tooltip = "Radius that Group will be randomly created in when activated. Default: 0";
             control = QEGVAR(Core,0to250Step10_Slider);
             expression = MODULE_EXPRESSION;
             defaultValue = "0";
         };
-        class GVAR(GroupMultiplier) {
-            property = QGVAR(GroupMultiplier);
+        class GVAR(Multiplier) {
+            property = QGVAR(Multiplier);
             displayName = "Group Multiplier";
             tooltip = "Duplicates the group into multiple groups with same settings. Use Creation Radius to populate large areas randomly. Default: 1 (this group only)";
             control = QEGVAR(Core,1to10Step1_Slider);
             expression = MODULE_EXPRESSION;
             defaultValue = "1";
         };
-        class GVAR(GroupOccupyOption) {
-            property = QGVAR(GroupOccupyOption);
+        class GVAR(Occupy) {
+            property = QGVAR(Occupy);
             displayName = "Occupy Building Options";
             tooltip = "Should the group occupy a building or group of buildings. Default: Off";
             control = QGVAR(OccupySelectAttribute);
             expression = MODULE_EXPRESSION;
             defaultValue = "'Off'";
+        };
+        class GVAR(CombatMode) {
+            property = QGVAR(CombatMode);
+            displayName = "CombatMode";
+            tooltip = "CombatMode";
+            control = "CombatModeGroup";
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "'YELLOW'";
+        };
+        class GVAR(Behaviour) {
+            property = QGVAR(Behaviour);
+            displayName = "Behaviour";
+            tooltip = "Behaviour";
+            control = "BehaviourGroup";
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "'AWARE'";
+        };
+        class GVAR(Formation) {
+            property = QGVAR(Formation);
+            displayName = "Formation";
+            tooltip = "Formation";
+            control = "FormationGroup";
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "'wedge'";
+        };
+        class GVAR(SpeedMode) {
+            property = QGVAR(SpeedMode);
+            displayName = "SpeedMode";
+            tooltip = "SpeedMode";
+            control = "SpeedModeGroup";
+            expression = ENTITY_EXPRESSION;
+            defaultValue = "'normal'";
         };
     };
 };

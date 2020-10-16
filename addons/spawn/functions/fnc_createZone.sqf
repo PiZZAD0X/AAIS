@@ -29,6 +29,7 @@ private _createZone = {
     private _entities = GETVAR(_zone,entities,[]);
     private _configs = GETVAR(_zone,configs,[]);
     private _templates = GETVAR(_zone,templates,[]);
+    private _tasks = GETVAR(_zone,tasks,[]);
     private _code = GETVAR(_zone,code,{});
         
     LOG_2("%1 _entities: %2", _zone, _entities);
@@ -47,9 +48,15 @@ private _createZone = {
         _x call FUNC(createObject);
     };
     
-    if !(_configs isEqualto []) then {
-        _configs apply {
-            _x call FUNC(spawnGroupFromConfig);
+    _configs apply {
+        if (_initial) then {
+            [_x, true] call FUNC(createGroup);
+        } else {
+            GVAR(spawnQueue) pushBack [false, _x];
+
+            if (GVAR(spawnGroupPFH) == -1) then {
+                GVAR(spawnGroupPFH) = [FUNC(spawnGroupPFH), 1, []] call CBA_fnc_addPerFrameHandler;
+            };
         };
     };
     
@@ -63,6 +70,10 @@ private _createZone = {
                 GVAR(spawnGroupPFH) = [FUNC(spawnGroupPFH), 1, []] call CBA_fnc_addPerFrameHandler;
             };
         };
+    };
+    
+    _tasks apply {
+        _x setVariable [QEGVAR(Tasks,Activated), true, true];
     };
     
     [_zone] call _code;
